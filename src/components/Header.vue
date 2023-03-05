@@ -1,10 +1,12 @@
 <template>
     <div id="container">
         <div id="indexImg">
-            <img src="../assets/家具/家具表示圖.png" alt="">
+            <router-link to="/">
+                <img src="../assets/indexImg.png" alt="">
+            </router-link>
         </div >
         <div id="topic">
-            <p>我是主題</p> 
+            <router-link to="/">線上商城</router-link> 
         </div>
         <div id="loginbar">
             <span v-show="data">{{$store.state.uname}}你好</span>
@@ -55,14 +57,23 @@
 // 主題與圖片
 #indexImg {
     flex-grow:1;
-    &>img{
+    & a img{
         height:50px;
+        padding-top:5px;
     }
 }
 
 #topic{
-    flex-direction: column;
-    justify-content: center;
+    flex-grow:1;
+    font-weight: bolder;
+    pading:10px;
+    &>a{
+        margin: 0;
+        font-size:40px;
+        font-family:'Times New Roman', Times, serif;
+        text-decoration: none;
+        color: black;
+    }
 }
 
 
@@ -71,6 +82,7 @@
 #loginbar img{
     box-sizing: border-box;
     cursor: pointer;
+    padding-top:5px;
 }
 
 #loginbar a{

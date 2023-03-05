@@ -55,19 +55,22 @@
     </div>
 
     <div id="hotItem">
-      <table style="display:flex;flex-direction: row;">
-        <ul >
-          <li>好冷喔</li>
-          <li>好冷喔</li>
-          <li>好冷喔</li>
-          <li>好冷喔</li>
-        </ul>
-        <ul>
-          <li>好冷喔</li>
-          <li>好冷喔</li>
-          <li>好冷喔</li>
-          <li>好冷喔</li>
-        </ul>
+      <table >
+        <tr>
+          <th>ㄎㄎㄎㄎ</th>
+          <th>ㄎㄎㄎㄎ</th>
+          <th>ㄎㄎㄎㄎ</th>
+        </tr>
+        <tr>
+          <td>ㄎㄎㄎㄎ</td>
+          <td>ㄎㄎㄎㄎ</td>
+          <td>ㄎㄎㄎㄎ</td>
+        </tr>
+        <tr>
+          <td>ㄎㄎㄎㄎ</td>
+          <td>ㄎㄎㄎㄎ</td>
+          <td>ㄎㄎㄎㄎ</td>
+        </tr>
       </table>
     </div>
 </div>
@@ -101,6 +104,11 @@ import 'swiper/dist/css/swiper.min.css';
 </script>
 
 <style lang="scss" scoped>
+.swiper{
+  width: 30%;
+  margin-top: 80px;
+}
+
 .swiper img{
   background-size: cover;
   margin-top:4%;
