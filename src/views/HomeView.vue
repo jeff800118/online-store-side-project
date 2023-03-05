@@ -19,24 +19,35 @@
 
     <div id="itemBox">
       <div class="itemlist">
-        <img src="../assets/3C產品/3C家電表示圖.png" alt="">
-        <span>3C用品</span>
+        <router-link to="/3C">
+          <img src="../assets/3C產品/3C家電表示圖.png" alt="">
+          <span>3C用品</span>
+        </router-link>
       </div>
       <div class="itemlist">
-        <img src="../assets/健身戶外/健身戶外表示圖.jpg" alt="">
-        <span>運動戶外</span>
+        <router-link to="/outfit">
+          <img src="../assets/健身戶外/健身戶外表示圖.jpg" alt="">
+          <span>運動戶外</span>
+        </router-link>
       </div>
       <div class="itemlist">
-        <img src="../assets/家具/家具表示圖.png" alt="">
-        <span>家具電器</span>
+        <router-link to="/furniture">
+          <img src="../assets/家具/家具表示圖.png" alt="">
+          <span>家具電器</span>
+        </router-link>
       </div>
       <div class="itemlist">
-        <img src="../assets/生活用品/生活用品表示圖.png" alt="">
-        <span>生活用品</span>
+        <router-link to="/daily">
+          <img src="../assets/生活用品/生活用品表示圖.png" alt="">
+          <span>生活用品</span>
+        </router-link>
       </div>
+
       <div class="itemlist">
-        <img src="../assets/美妝保養/美妝保養表示圖.png" alt="">
-        <span>美妝保養</span>
+        <router-link to="/cosmetic">
+          <img src="../assets/美妝保養/美妝保養表示圖.png" alt="">
+          <span>美妝保養</span>
+        </router-link>
       </div>
       
       
@@ -100,6 +111,8 @@ import 'swiper/dist/css/swiper.min.css';
   justify-content: center;
 }
 
+
+// items容器
 #itemBox{
   margin-left: 20%;
   margin-top: 5%;
@@ -109,10 +122,12 @@ import 'swiper/dist/css/swiper.min.css';
   justify-content: space-evenly;
 }
 
+// items列表
 .itemlist{
   display:flex;
   flex-direction: column;
   align-items: center;
+  text-decoration: none;
   & span{
     // border: 1px solid black;
     border-radius: 30px;
@@ -122,6 +137,16 @@ import 'swiper/dist/css/swiper.min.css';
   }
 }
 
+// item跳轉
+a{
+  text-decoration: none;
+  display:flex;
+  flex-direction: column;
+  text-align: center;
+  color:black
+}
+
+// items項目名稱
 #hotItem{
   margin-top: 30px;
   // border:1px solid black;
