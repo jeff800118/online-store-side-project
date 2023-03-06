@@ -52,10 +52,12 @@
     </div>
 
     <div id="hotItem">
+      <!-- <div v-for="(item,index) in data" :key="index"> -->
       <div>
-        <img src="../assets/indexImg.png" alt="">
+        <img src="../assets/indexImg.png" alt="" >
+        <!-- <img src="../assets/indexImg.png" alt="" > -->
       </div>
-      <ul >
+      <ul>
         <li>goods_name</li>
         <li>goods_price</li>
         <li>goods_stock</li>
@@ -66,16 +68,19 @@
     <div id="comment">
       <table>
         <tr>
-          <th>標題</th>
-          <th>ㄎㄎㄎㄎ</th>
-          <th>ㄎㄎㄎㄎ</th>
+          <th>主題</th>
+          <th>回復/瀏覽</th>
+          <th>作者</th>
+          <th>時間</th>
         </tr>
         <tr>
           <td>ㄎㄎㄎㄎ</td>
           <td>ㄎㄎㄎㄎ</td>
           <td>ㄎㄎㄎㄎ</td>
+          <td>ㄎㄎㄎㄎ</td>
         </tr>
         <tr>
+          <td>ㄎㄎㄎㄎ</td>
           <td>ㄎㄎㄎㄎ</td>
           <td>ㄎㄎㄎㄎ</td>
           <td>ㄎㄎㄎㄎ</td>
@@ -91,6 +96,12 @@ import 'swiper/dist/css/swiper.min.css';
   export default {
     data() {
         return {
+          data() {
+            return {
+              data: "",
+              avatar:Math.floor(Math.random()*10)
+            }
+          },
             swiperOption: {
                 autoplay:{
                     delay:4000,
@@ -108,6 +119,11 @@ import 'swiper/dist/css/swiper.min.css';
     components:{
       swiper,
       swiperSlide
+    },
+    methods:{
+      goCart(){
+        
+      }
     }
   }
 </script>
@@ -177,20 +193,32 @@ a{
   }
 }
 
+// 文章回覆
 #comment{
   margin-top: 30px;
   // border:1px solid black;
   background-color: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  & table{
+    background-color:white;
+  // border-spacing: seperate;
+    & td{
+    border-bottom: 1px solid #e1e1e1;
+    border-collapse: collapse;
+    text-decoration: none;
+  }
+  & th{
+    border-bottom: 2px solid #a1a1a1;
+    border-collapse: collapse;
+  }
+  }
 }
 
 
 table{
-  background-color:white;
-  // border-spacing: seperate;
-  &,th,td{
-    border: 1px solid black;
-    border-collapse: collapse;
-  }
+  
 }
 
 </style>
