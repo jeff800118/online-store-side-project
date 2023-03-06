@@ -3,15 +3,15 @@
         <div id="indexImg">
             <router-link to="/">
                 <img src="../assets/indexImg.png" alt="">
+                <span>達內線上商城</span>
             </router-link>
-            <span>達內線上商城</span>
         </div >
         <div id="topic">
             <router-link to="/">隨時最低價，好康都在這!</router-link> 
         </div>
         <div id="loginbar">
             <span v-show="data">{{$store.state.uname}}你好</span>
-            <img src="../assets/cart.svg" alt="" @click="goCart()" id="cart">
+            <img src="../assets/cart.svg" alt="" @click="goCart()" id="cart">&nbsp;
             <router-link to="/login" v-show="!data" class="login"> &nbsp;登入 | 註冊&nbsp;</router-link>
         </div>
     </div>
@@ -58,13 +58,20 @@
 // 主題與圖片
 #indexImg {
     flex-grow:1;
+    & a{
+        text-decoration: none;
+    }
+    
     & a img{
         height:50px;
         padding-top:5px;
         box-sizing: border-box;
+        
     }
-    & span{
+    & a span{
         vertical-align: super;
+        
+        color:black;
     }
 }
 

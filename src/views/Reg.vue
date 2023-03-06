@@ -54,13 +54,17 @@
 
 <style lang="scss" scoped>
 #container{
-    height:700px;
+    height:50rem;
     background-image: url(../assets/loginIMG.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-attachment:fixed;
-    margin-top:80px
+    margin-top:80px;
+    &::before{
+        content:"";
+        display:table;
+    }
 }
 
 #loginbox{
@@ -68,8 +72,8 @@
     border-radius: 20px;
     width: 200px ;
     padding:20px;
-    position: absolute;
-    margin-top:8%;
+    // position: absolute;
+    margin-top:5%;
     margin-left:40%;
     display:flex;
     flex-direction: column;

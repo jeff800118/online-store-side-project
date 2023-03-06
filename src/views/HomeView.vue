@@ -52,6 +52,9 @@
     </div>
 
     <div id="hotItem">
+      <div>
+        <img src="../assets/indexImg.png" alt="">
+      </div>
       <ul >
         <li>goods_name</li>
         <li>goods_price</li>
@@ -163,8 +166,15 @@ a{
 // items項目名稱
 #hotItem{
   margin-top: 30px;
+  display: flex;
+  flex-direction:row ;
+  align-items: center;
   // border:1px solid black;
-  background-color: #f1f1f1;
+  // background-color: #f1f1f1;
+  & ul{
+    list-style-type: none;
+    line-height: 1.5;
+  }
 }
 
 #comment{

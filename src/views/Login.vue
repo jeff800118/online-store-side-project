@@ -13,7 +13,9 @@
 </template>
 
 <script>
+// import Footer from '../components/Footer.vue'
     export default {
+        // components:{Footer},
         data() {
             return {
                 data: "",
@@ -37,13 +39,18 @@
 
 <style lang="scss" scoped>
 #container{
-    height:700px;
+    height:50rem;
     background-image: url(../assets/loginIMG.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-attachment:fixed;
-    margin-top:80px
+    // margin-top:80px
+    position: relative;
+    &::before{
+        content:"";
+        display:table;
+    }
 }
 
 #loginbox{
@@ -51,8 +58,8 @@
     border-radius: 20px;
     width: 200px ;
     padding:20px;
-    position: absolute;
-    margin-top:8%;
+    // position: relative;
+    margin-top:12%;
     margin-left:40%;
     display:flex;
     flex-direction: column;
@@ -69,4 +76,12 @@
     border-radius:20px;
     cursor: pointer;
 }
+
+#footer{
+    background-color:#f8f8f8;
+    min-height:170px;
+    padding-top:10px;
+    bottom:0
+}
+
 </style>
