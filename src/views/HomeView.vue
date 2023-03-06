@@ -19,13 +19,13 @@
 
     <div id="itemBox">
       <div class="itemlist">
-        <router-link to="/3C">
+        <router-link to="`/productlist/${goods.goods_style}`">
           <img src="../assets/3C產品/3C家電表示圖.png" alt="">
           <span>3C用品</span>
         </router-link>
       </div>
       <div class="itemlist">
-        <router-link to="/outfit">
+        <router-link to="/outfit/">
           <img src="../assets/健身戶外/健身戶外表示圖.jpg" alt="">
           <span>運動戶外</span>
         </router-link>
@@ -49,15 +49,21 @@
           <span>美妝保養</span>
         </router-link>
       </div>
-      
-      
-      
     </div>
 
     <div id="hotItem">
-      <table >
+      <ul >
+        <li>goods_name</li>
+        <li>goods_price</li>
+        <li>goods_stock</li>
+        <li>goods_style</li>
+      </ul>
+    </div>
+
+    <div id="comment">
+      <table>
         <tr>
-          <th>ㄎㄎㄎㄎ</th>
+          <th>標題</th>
           <th>ㄎㄎㄎㄎ</th>
           <th>ㄎㄎㄎㄎ</th>
         </tr>
@@ -161,6 +167,20 @@ a{
   background-color: #f1f1f1;
 }
 
+#comment{
+  margin-top: 30px;
+  // border:1px solid black;
+  background-color: #f1f1f1;
+}
 
+
+table{
+  background-color:white;
+  // border-spacing: seperate;
+  &,th,td{
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+}
 
 </style>

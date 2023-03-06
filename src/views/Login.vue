@@ -14,7 +14,24 @@
 
 <script>
     export default {
-        
+        data() {
+            return {
+                data: "",
+                uname:"",
+                upwd:"",
+                reupwd:"",
+            }
+        },
+        methods:{
+            // let url = '/login'
+            // let params = `account_name=${this.uname}&account_password=${this.upwd}`
+            getData(){
+                this.axios.post(url,params).then((res)=>{
+                    console.log(res)
+                    this.$store.commit('getuname',this.uname)
+                })
+            }
+        }
     }
 </script>
 

@@ -11,14 +11,44 @@
             地址 : <input type="password"><br>
             <button id="btn">登入</button>
             <p>忘記密碼</p>
-            <p>還不是會員嗎?<a href="/Reg">立即註冊</a></p>
+            <button @click="getData()" id="btn">註冊</button>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        
+        data() {
+            return {
+                data: "",
+                uname:"",
+                upwd:"",
+                reupwd:"",
+                username:"",
+                gender:1,
+                email:"",
+                address:"",
+                upwdBool:false,
+                reupwdBool:false,
+                unameBool:false,
+                emailBool:false,
+            }
+        },
+        methods:{
+            getData(){
+                let url = '/reg'
+                let params = `account_name=${this.uname}&account_upwd=${this.upwd}&user_sex=${this.gender}&user_phone=${this.uname}&user_mail=${this.email}&user_address=${this.address}`
+                this.axios.post(url,params).then((res)=>{
+                    console.log(res)
+                    if(res.data == 1){
+                        alert('註冊成功')
+                        this.$route.go('/login')
+                    }else if(res.data == 0){
+                        alert('註冊失敗')
+                    }
+                })
+            }
+        }
     }
 </script>
 
@@ -55,5 +85,10 @@
 #btn{
     border-radius:20px;
     cursor: pointer;
+}
+
+#btn{
+    border-radius: 10px;
+    line-height: 30px;
 }
 </style>

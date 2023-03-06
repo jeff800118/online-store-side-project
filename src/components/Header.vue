@@ -4,9 +4,10 @@
             <router-link to="/">
                 <img src="../assets/indexImg.png" alt="">
             </router-link>
+            <span>達內線上商城</span>
         </div >
         <div id="topic">
-            <router-link to="/">線上商城</router-link> 
+            <router-link to="/">隨時最低價，好康都在這!</router-link> 
         </div>
         <div id="loginbar">
             <span v-show="data">{{$store.state.uname}}你好</span>
@@ -60,6 +61,10 @@
     & a img{
         height:50px;
         padding-top:5px;
+        box-sizing: border-box;
+    }
+    & span{
+        vertical-align: super;
     }
 }
 

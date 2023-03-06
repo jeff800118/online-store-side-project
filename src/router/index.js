@@ -8,10 +8,16 @@ import Cosmetic from '../views/Cosmetic.vue'
 import Outfit from '../views/Outfit.vue'
 import Furniture from '../views/Furniture.vue'
 import Reg from '../views/Reg.vue'
+import ProductList from '../views/ProductList.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/productlist/:style',
+    name: 'ProductList',
+    component: ProductList
+  },
   {
     path: '/reg',
     name: 'Reg',
