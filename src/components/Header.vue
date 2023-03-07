@@ -10,9 +10,10 @@
             <router-link to="/">隨時最低價，好康都在這!</router-link> 
         </div>
         <div id="loginbar">
-            <span v-show="data">{{$store.state.uname}}你好</span>
+            <span v-show="$store.state.uname">{{$store.state.uname}}你好</span>
+            <span v-show="$store.state.uname" @click="$store.commit('logout')"><a href="">退出</a> </span>
             <img src="../assets/cart.svg" alt="" @click="goCart()" id="cart">&nbsp;
-            <router-link to="/login" v-show="!data" class="login"> &nbsp;登入 | 註冊&nbsp;</router-link>
+            <router-link to="/login" v-show="!$store.state.uname" class="login" > &nbsp;登入 | 註冊&nbsp;</router-link>
         </div>
     </div>
 </template>
@@ -91,24 +92,31 @@
 
 // 登入條與cart
 
-#loginbar img{
-    box-sizing: border-box;
-    cursor: pointer;
-    padding-top:5px;
-}
 
-#loginbar a{
-    vertical-align:super;
+#loginbar {
+    & img{
+        box-sizing: border-box;
+        cursor: pointer;
+        padding-top:5px;
+    }
+   & span{
+        vertical-align:super;
+   }
+   & a{
+    text-decoration: none;
+    color: blue;
+    margin-left:5px ;
+    border:1px solid black;
+    border-radius:30px;
+    padding: 3px;
+   }
 }
-
-// #cart{
-//     cursor: pointer;
-// }
 
 .login{
     border:1px solid black;
     border-radius:30px;
     text-decoration: none;
+    vertical-align:super;
 }
 
 </style>

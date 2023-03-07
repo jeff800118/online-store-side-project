@@ -14,8 +14,8 @@ export default new Vuex.Store({
       state.uname = uname
       localStorage.setItem('uname',uname)
     },
-    logout(){
-      localStorage.clear()
+    logout(state){
+      localStorage.setItem('uname',"")
     }
   },
   actions: {

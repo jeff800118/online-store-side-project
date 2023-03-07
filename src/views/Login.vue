@@ -2,10 +2,10 @@
     <div id="container">
         <div id="loginbox">
             <!-- <img src="../assets/loginIMG.jpg" alt=""> -->
-            手機號碼 : <input type="text" placeholder="請輸入手機號碼">
-            密碼 : <input type="password" placeholder>
-            確認密碼 : <input type="password"><br>
-            <button id="btn">登入</button>
+            帳號 : <input type="text" placeholder="請輸入手機號碼" v-model="uname">
+            密碼 : <input type="password" placeholder="請輸入密碼" v-model="upwd">
+            確認密碼 : <input type="password" placeholder="請再次輸入密碼" v-model="reupwd"><br>
+            <button id="btn" @click="getData()">登入</button>
             <p>忘記密碼</p>
             <p>還不是會員嗎?<a href="/Reg">立即註冊</a></p>
         </div>
@@ -25,12 +25,19 @@
             }
         },
         methods:{
-            // let url = '/login'
-            // let params = `account_name=${this.uname}&account_password=${this.upwd}`
             getData(){
+                let url = '/login'
+                let params = `account_name=${this.uname}&account_password=${this.$md5(this.upwd)}`
                 this.axios.post(url,params).then((res)=>{
                     console.log(res)
-                    this.$store.commit('getuname',this.uname)
+                    if(res.data == 1){
+                        alert('登入成功')
+                        this.$store.commit('getuname',this.uname)
+                        this.$router.push('/')
+                    }else if(res.data == 0){
+                        alert('登入失敗')
+                    }
+                    
                 })
             }
         }

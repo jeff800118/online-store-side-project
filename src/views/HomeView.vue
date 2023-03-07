@@ -50,20 +50,49 @@
         </router-link>
       </div>
     </div>
-
-    <div id="hotItem">
+    <!-- <div v-if="this.data.goods_style">{{data.goods_style}}</div> -->
+    <div id="hotItemBox">
       <!-- <div v-for="(item,index) in data" :key="index"> -->
-      <div>
+      <div class="hotItem">
         <img src="../assets/indexImg.png" alt="" >
-        <!-- <img src="../assets/indexImg.png" alt="" > -->
+        <ul>
+          <li>goods_name</li>
+          <li>goods_price</li>
+          <li>goods_stock</li>
+          <li>goods_style</li>
+        </ul>
       </div>
-      <ul>
-        <li>goods_name</li>
-        <li>goods_price</li>
-        <li>goods_stock</li>
-        <li>goods_style</li>
-      </ul>
+      <div class="hotItem">
+        <img src="../assets/indexImg.png" alt="" >
+        <ul>
+          <li>goods_name</li>
+          <li>goods_price</li>
+          <li>goods_stock</li>
+          <li>goods_style</li>
+        </ul>
+      </div>
+      <div class="hotItem">
+        <img src="../assets/indexImg.png" alt="" >
+        <ul>
+          <li>goods_name</li>
+          <li>goods_price</li>
+          <li>goods_stock</li>
+          <li>goods_style</li>
+        </ul>
+      </div>
+      <div class="hotItem">
+        <img src="../assets/indexImg.png" alt="" >
+        <ul>
+          <li>goods_name</li>
+          <li>goods_price</li>
+          <li>goods_stock</li>
+          <li>goods_style</li>
+        </ul>
+      </div>
+      
     </div>
+    
+    
 
     <div id="comment">
       <table>
@@ -86,6 +115,36 @@
           <td>ㄎㄎㄎㄎ</td>
         </tr>
       </table>
+    </div>
+    <div id="cart">
+      <h3>購物車</h3>
+      <div id="cartBox">
+        <span><input type="checkbox"> 全選</span>
+        <span>商品信息</span>
+        <span>單價</span>
+        <span>數量</span>      
+        <span>金額</span>
+        <span>操作</span>
+      </div>
+      <ul>
+        <!-- <h2 v-if="goods.lenght == 0">購物車中沒有任何商品!</h2> -->
+        <li v-for="(iten,index) in goods" :key="index">
+          <a href=""></a>
+          <a href="">{{ item.name }}</a>
+          <b href="">{{ item.price }}</b>
+          <div>
+            <!-- <button @click="updatecount(index,count--)">-</button> -->
+          
+            <!-- <button @click="updatecount(index,count++)">+</button> -->
+          </div>
+          <span>總金額 : {{ this.price*this.count }}<strong></strong></span>
+        </li>
+      </ul>
+      <div>
+        <span>已選商品</span>
+        
+        <button>結算</button>
+      </div>
     </div>
 </div>
 </template>
@@ -180,7 +239,7 @@ a{
 }
 
 // items項目名稱
-#hotItem{
+#hotItemBox{
   margin-top: 30px;
   display: flex;
   flex-direction:row ;
@@ -190,6 +249,19 @@ a{
   & ul{
     list-style-type: none;
     line-height: 1.5;
+  }
+}
+
+.hotItem{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex:0 0 25%;
+  border-top:1px solid #a1a1a1;
+  justify-content: center;
+  & img{
+    width: 25%;
+    height:25%;
   }
 }
 
@@ -216,9 +288,5 @@ a{
   }
 }
 
-
-table{
-  
-}
 
 </style>

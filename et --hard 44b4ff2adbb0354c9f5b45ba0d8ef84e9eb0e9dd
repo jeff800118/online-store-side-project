@@ -1,0 +1,41 @@
+[33mcommit 44b4ff2adbb0354c9f5b45ba0d8ef84e9eb0e9dd[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Jeff <jeff800118@gmail.com>
+Date:   Mon Mar 6 23:23:13 2023 +0800
+
+    頁尾排版優化
+
+[33mcommit 1204751a212f0486817acc9f707ec5e75330affb[m
+Author: Jeff <jeff800118@gmail.com>
+Date:   Mon Mar 6 20:27:18 2023 +0800
+
+    解決頁尾不固定問題
+
+[33mcommit 98bd0ae4970d6ac525161c5afa04f46533244c6d[m
+Author: Jeff <jeff800118@gmail.com>
+Date:   Mon Mar 6 15:53:24 2023 +0800
+
+    初創sql後端
+
+[33mcommit d4ee940d5cdaa86fd4af1e1117dda34bb6638595[m
+Author: Jeff <jeff800118@gmail.com>
+Date:   Sun Mar 5 21:32:06 2023 +0800
+
+    建構初版登入和註冊頁面
+
+[33mcommit 3ed0082d66051bc623b60111a2a685c449a3ee7b[m
+Author: Jeff <jeff800118@gmail.com>
+Date:   Sun Mar 5 14:16:13 2023 +0800
+
+    修改Header介面
+
+[33mcommit a1e3f88709e1f50c9ab083ce44c022b6b145004c[m
+Author: Jeff <jeff800118@gmail.com>
+Date:   Sat Mar 4 15:59:49 2023 +0800
+
+    首頁初版構建
+
+[33mcommit 5f7acf15b7092d4a9a4ab8240407d74274923e1a[m
+Author: Jeff <jeff800118@gmail.com>
+Date:   Sat Mar 4 13:21:42 2023 +0800
+
+    購物商城sideProject初版
