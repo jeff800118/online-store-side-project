@@ -17,34 +17,34 @@
       </swiper>
     </div>
 
-    <div id="itemBox">
-      <div class="itemlist">
-        <router-link to="`/productlist/${goods.goods_style}`">
+    <div id="itemBox" @click="goGoods()">
+      <div class="itemlist" >
+        <router-link to="/#/1">
           <img src="../assets/3C產品/3C家電表示圖.png" alt="">
           <span>3C用品</span>
         </router-link>
       </div>
       <div class="itemlist">
-        <router-link to="/outfit/">
+        <router-link to="/#/2">
           <img src="../assets/健身戶外/健身戶外表示圖.jpg" alt="">
           <span>運動戶外</span>
         </router-link>
       </div>
       <div class="itemlist">
-        <router-link to="/furniture">
+        <router-link to="/#/3">
           <img src="../assets/家具/家具表示圖.png" alt="">
           <span>家具電器</span>
         </router-link>
       </div>
       <div class="itemlist">
-        <router-link to="/daily">
+        <router-link to="/#/4">
           <img src="../assets/生活用品/生活用品表示圖.png" alt="">
           <span>生活用品</span>
         </router-link>
       </div>
 
       <div class="itemlist">
-        <router-link to="/cosmetic">
+        <router-link to="/#/5">
           <img src="../assets/美妝保養/美妝保養表示圖.png" alt="">
           <span>美妝保養</span>
         </router-link>
@@ -53,43 +53,16 @@
     <!-- <div v-if="this.data.goods_style">{{data.goods_style}}</div> -->
     <div id="hotItemBox">
       <!-- <div v-for="(item,index) in data" :key="index"> -->
-      <div class="hotItem">
-        <img src="../assets/indexImg.png" alt="" >
+      <div class="hotItem" v-for="(item,index) in data" :key="index">
+        <img :src="`{{ item.goods_img }}`" alt="" >
+        <!-- <img src="../assets/3C產品/3C2.png" alt="" > -->
         <ul>
-          <li>goods_name</li>
-          <li>goods_price</li>
-          <li>goods_stock</li>
-          <li>goods_style</li>
+          <li>商品名稱 : {{item.goods_name}}</li>
+          <li>商品價格 : {{item.goods_price}}</li>
+          <li>商品庫存 : {{item.goods_stock}}</li>
+          <li>商品類型 : {{item.goods_style}}</li>
         </ul>
       </div>
-      <div class="hotItem">
-        <img src="../assets/indexImg.png" alt="" >
-        <ul>
-          <li>goods_name</li>
-          <li>goods_price</li>
-          <li>goods_stock</li>
-          <li>goods_style</li>
-        </ul>
-      </div>
-      <div class="hotItem">
-        <img src="../assets/indexImg.png" alt="" >
-        <ul>
-          <li>goods_name</li>
-          <li>goods_price</li>
-          <li>goods_stock</li>
-          <li>goods_style</li>
-        </ul>
-      </div>
-      <div class="hotItem">
-        <img src="../assets/indexImg.png" alt="" >
-        <ul>
-          <li>goods_name</li>
-          <li>goods_price</li>
-          <li>goods_stock</li>
-          <li>goods_style</li>
-        </ul>
-      </div>
-      
     </div>
     
     
@@ -128,16 +101,16 @@
       </div>
       <ul>
         <!-- <h2 v-if="goods.lenght == 0">購物車中沒有任何商品!</h2> -->
-        <li v-for="(iten,index) in goods" :key="index">
-          <a href=""></a>
-          <a href="">{{ item.name }}</a>
-          <b href="">{{ item.price }}</b>
-          <div>
+        <!-- <li v-for="(item,index) in data" :key="index"> -->
+          <!-- <a href=""></a> -->
+          <!-- <a href="">{{ item.goods_name }}</a> -->
+          <!-- <b href="">{{ item.goods_price }}</b> -->
+          <!-- <div> -->
             <!-- <button @click="updatecount(index,count--)">-</button> -->
           
             <!-- <button @click="updatecount(index,count++)">+</button> -->
-          </div>
-          <span>總金額 : {{ this.price*this.count }}<strong></strong></span>
+          <!-- </div> -->
+          <!-- <span>總金額 : {{ this.price*this.count }}<strong></strong></span> -->
         </li>
       </ul>
       <div>
@@ -158,7 +131,8 @@ import 'swiper/dist/css/swiper.min.css';
           data() {
             return {
               data: "",
-              avatar:Math.floor(Math.random()*10)
+              avatar:Math.floor(Math.random()*10),
+              goods:"",
             }
           },
             swiperOption: {
@@ -180,9 +154,23 @@ import 'swiper/dist/css/swiper.min.css';
       swiperSlide
     },
     methods:{
-      goCart(){
-        
+      getData(){
+        let url = '/goods'
+        this.axios.get(url).then((res)=>{
+          console.log(res.data[1].goods_img)
+          this.data = res.data
+          
+        })
+      },
+      goGoods(goods_pid){
+        let url = `/goods/${goods_pid}`
+        this.axios.get(url).then((res)=>{
+          console.log(res)
+        })
       }
+    },
+    mounted(){
+      this.getData()
     }
   }
 </script>
@@ -239,17 +227,20 @@ a{
 }
 
 // items項目名稱
-#hotItemBox{
+
+  #hotItemBox{
   margin-top: 30px;
   display: flex;
   flex-direction:row ;
   align-items: center;
-  // border:1px solid black;
-  // background-color: #f1f1f1;
   & ul{
     list-style-type: none;
     line-height: 1.5;
   }
+}
+
+.hotItem{
+  overflow: hidden;
 }
 
 .hotItem{

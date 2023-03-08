@@ -67,11 +67,9 @@
         height:50px;
         padding-top:5px;
         box-sizing: border-box;
-        
     }
     & a span{
         vertical-align: super;
-        
         color:black;
     }
 }
@@ -86,7 +84,7 @@
         font-family:'Times New Roman', Times, serif;
         text-decoration: none;
         color: black;
-    }
+    }   
 }
 
 
@@ -104,7 +102,7 @@
    }
    & a{
     text-decoration: none;
-    color: blue;
+    color: black;
     margin-left:5px ;
     border:1px solid black;
     border-radius:30px;
