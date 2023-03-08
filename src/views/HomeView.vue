@@ -17,9 +17,9 @@
       </swiper>
     </div>
 
-    <div id="itemBox" @click="goGoods()">
+    <div id="itemBox"  >
       <div class="itemlist" >
-        <router-link to="/#/1">
+        <router-link to="/#/1" @click="goGoods(goods_pid)">
           <img src="../assets/3C產品/3C家電表示圖.png" alt="">
           <span>3C用品</span>
         </router-link>
@@ -50,22 +50,19 @@
         </router-link>
       </div>
     </div>
-    <!-- <div v-if="this.data.goods_style">{{data.goods_style}}</div> -->
+    <!-- <div v-for="(item,index) in data" :key="index">{{item.goods_style}}</div> -->
     <div id="hotItemBox">
-      <!-- <div v-for="(item,index) in data" :key="index"> -->
       <div class="hotItem" v-for="(item,index) in data" :key="index">
-        <img :src="`{{ item.goods_img }}`" alt="" >
+        <img :src="`{{ this.imgList }}`" alt="" >
         <!-- <img src="../assets/3C產品/3C2.png" alt="" > -->
         <ul>
           <li>商品名稱 : {{item.goods_name}}</li>
           <li>商品價格 : {{item.goods_price}}</li>
           <li>商品庫存 : {{item.goods_stock}}</li>
-          <li>商品類型 : {{item.goods_style}}</li>
+          <li @click="goGoods">商品類型 : {{item.goods_pid}}</li>
         </ul>
       </div>
     </div>
-    
-    
 
     <div id="comment">
       <table>
@@ -133,6 +130,8 @@ import 'swiper/dist/css/swiper.min.css';
               data: "",
               avatar:Math.floor(Math.random()*10),
               goods:"",
+              a:1,
+              imgList:"",
             }
           },
             swiperOption: {
@@ -157,15 +156,22 @@ import 'swiper/dist/css/swiper.min.css';
       getData(){
         let url = '/goods'
         this.axios.get(url).then((res)=>{
-          console.log(res.data[1].goods_img)
+          console.log(res)
           this.data = res.data
+          console.log(this.data[0].goods_img)
+           for(let i of this.data){
+            console.log(i.goods_img)
+            this.imgList = require()
+          }
           
         })
       },
       goGoods(goods_pid){
-        let url = `/goods/${goods_pid}`
+        console.log(goods_pid)
+        // let goods_pid = this.$route.params
+        let url = `/category/${goods_pid}`
         this.axios.get(url).then((res)=>{
-          console.log(res)
+          console.log(res)  
         })
       }
     },
@@ -233,6 +239,8 @@ a{
   display: flex;
   flex-direction:row ;
   align-items: center;
+  overflow-y: scroll;
+  // max-width:100%;
   & ul{
     list-style-type: none;
     line-height: 1.5;
@@ -240,7 +248,8 @@ a{
 }
 
 .hotItem{
-  overflow: hidden;
+  word-break:break-all;
+  width:25%;
 }
 
 .hotItem{
