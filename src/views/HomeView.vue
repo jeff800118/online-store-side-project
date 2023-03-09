@@ -18,42 +18,50 @@
     </div>
 
     <div id="itemBox"  >
-      <div class="itemlist" >
-        <router-link to="/#/1" @click="goGoods(goods_pid)">
+      <div class="itemlist">
+        <router-link to="/#/1" @click="goGoods(goods_pid)" :class="{cur:$route.params.type==1}">
           <img src="../assets/3C產品/3C家電表示圖.png" alt="">
-          <span>3C用品</span>
+          <span class="cur">3C用品</span>
         </router-link>
       </div>
       <div class="itemlist">
         <router-link to="/#/2">
           <img src="../assets/健身戶外/健身戶外表示圖.jpg" alt="">
-          <span>運動戶外</span>
+          <span class="cur">運動戶外</span>
         </router-link>
       </div>
       <div class="itemlist">
         <router-link to="/#/3">
           <img src="../assets/家具/家具表示圖.png" alt="">
-          <span>家具電器</span>
+          <span class="cur">家具電器</span>
         </router-link>
       </div>
       <div class="itemlist">
         <router-link to="/#/4">
           <img src="../assets/生活用品/生活用品表示圖.png" alt="">
-          <span>生活用品</span>
+          <span class="cur">生活用品</span>
         </router-link>
       </div>
 
       <div class="itemlist">
         <router-link to="/#/5">
           <img src="../assets/美妝保養/美妝保養表示圖.png" alt="">
-          <span>美妝保養</span>
+          <span class="cur">美妝保養</span>
         </router-link>
       </div>
     </div>
-    <!-- <div v-for="(item,index) in data" :key="index">{{item.goods_style}}</div> -->
+
+    <div class="category">
+      <div><router-link to="/#/1" :class="{cur:$route.params.type==1}">{{this.data[0].goods_style}}</router-link></div>
+      <div>{{this.data[10].goods_style}}</div>
+      <div>{{this.data[20].goods_style}}</div>
+      <div>{{this.data[30].goods_style}}</div>
+      <div>{{this.data[40].goods_style}}</div>
+    </div>
+    
     <div id="hotItemBox">
       <div class="hotItem" v-for="(item,index) in data" :key="index">
-        <img :src="`{{ this.imgList }}`" alt="" >
+        <img :src="`{{ item.goods_img }}`" alt="" >
         <!-- <img src="../assets/3C產品/3C2.png" alt="" > -->
         <ul>
           <li>商品名稱 : {{item.goods_name}}</li>
@@ -131,7 +139,8 @@ import 'swiper/dist/css/swiper.min.css';
               avatar:Math.floor(Math.random()*10),
               goods:"",
               a:1,
-              imgList:"",
+              imgList:[],
+              category:"",
             }
           },
             swiperOption: {
@@ -148,6 +157,10 @@ import 'swiper/dist/css/swiper.min.css';
             }
         }
     },
+    beforeRouteUpdate(from,to,next){
+      // console.log(next)
+      next()
+    },
     components:{
       swiper,
       swiperSlide
@@ -156,14 +169,15 @@ import 'swiper/dist/css/swiper.min.css';
       getData(){
         let url = '/goods'
         this.axios.get(url).then((res)=>{
-          console.log(res)
+          console.log(res.data)
           this.data = res.data
+          // console.log(this.data)
           console.log(this.data[0].goods_img)
            for(let i of this.data){
-            console.log(i.goods_img)
-            this.imgList = require()
+            // console.log(i.goods_img)
           }
-          
+          this.data[i].goods_img = require(this.data[i].goods_img)
+          // console.log(this.imgList)
         })
       },
       goGoods(goods_pid){
@@ -171,12 +185,22 @@ import 'swiper/dist/css/swiper.min.css';
         // let goods_pid = this.$route.params
         let url = `/category/${goods_pid}`
         this.axios.get(url).then((res)=>{
-          console.log(res)  
+          // console.log(res)  
+          this.$store.state.commit('')
         })
+      },
+      style(){
+        let url = '/discountpercent'
+        this.axios.get(url).then((res)=>{
+          console.log(res.data)
+          this.category = res.data
+          console.log(this.category)
+      })
       }
     },
     mounted(){
       this.getData()
+      this.style()
     }
   }
 </script>
@@ -241,6 +265,7 @@ a{
   align-items: center;
   overflow-y: scroll;
   // max-width:100%;
+  flex-wrap: wrap;
   & ul{
     list-style-type: none;
     line-height: 1.5;
@@ -256,7 +281,8 @@ a{
   display: flex;
   flex-direction: row;
   align-items: center;
-  flex:0 0 25%;
+  flex:0 0 33%;
+  height:200px;
   border-top:1px solid #a1a1a1;
   justify-content: center;
   & img{
@@ -288,5 +314,19 @@ a{
   }
 }
 
+.cur:active {
+    background: #f39700;
+    color:#fff;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.category{
+  display: flex;
+  flex-direction: column;
+  & a{
+    text-align: left!important;
+  }
+}
 
 </style>

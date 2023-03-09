@@ -65,7 +65,7 @@ VALUES
 
 --TABLE discountPercent
 CREATE TABLE `discountPercent` ( 
-    `goods_pid` Int AUTO_INCREMENT,
+    `goods_pid` KEY Int AUTO_INCREMENT,
     `goods_style` VARCHAR(255) NOT NULL,
     `goods_discountPercent` VARCHAR(255) NOT NULL,
     `goods_count` VARCHAR(255) NOT NULL
@@ -73,11 +73,11 @@ CREATE TABLE `discountPercent` (
 
 INSERT INTO `discountPercent` (goods_pid,goods_style,goods_discountPercent,goods_count)
 VALUES
-(1,'3C',0.95,0),
-(2,'outfit',0.85,0),
-(3,'furniture',0.9,0),
-(4,'daily',0.6,0),
-(5,'cosmetic',0.8,0);
+('3C',0.95,0),
+('健身戶外',0.85,0),
+('家具電器',0.9,0),
+('生活用品',0.6,0),
+('美妝保養',0.8,0);
 
 -- TABLE topSell
 CREATE TABLE `topSell` (
