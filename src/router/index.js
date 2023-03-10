@@ -14,7 +14,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/productlist/:style',
+    path: '/productlist/:type',
     name: 'ProductList',
     component: ProductList
   },
