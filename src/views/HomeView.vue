@@ -171,7 +171,6 @@ import 'swiper/dist/css/swiper.min.css';
         this.axios.get(url).then((res)=>{
           console.log(res.data)
           this.data = res.data
-          console.log(this.data[0].goods_img)
         })
       },
       goGoods(goods_pid){
