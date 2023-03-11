@@ -26,13 +26,13 @@
       </div>
       <div class="itemList">
         <router-link to="/productlist/2">
-          <img src="../assets/健身戶外/健身戶外表示圖.jpg" alt="">
+          <img src="../assets/運動戶外/健身戶外表示圖.jpg" alt="">
           <span class="cur">運動戶外</span>
         </router-link>
       </div>
       <div class="itemList">
         <router-link to="/productlist/3">
-          <img src="../assets/家具/家具表示圖.png" alt="">
+          <img src="../assets/家具電器/家具表示圖.png" alt="">
           <span class="cur">家具電器</span>
         </router-link>
       </div>
