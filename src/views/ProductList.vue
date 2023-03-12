@@ -8,19 +8,25 @@
             <div><router-link to ="#" :class="{cur:$route.params.type == 5}">{{$route.params.type == 5? "美妝保養":""}}</router-link></div>
         </div>
         <!-- <hr> -->
-        <div id="hotItemBox" >
+        <div id="hotItemBox">
             
             <div class="hotItem" v-for="(item,index) in dataShow" :key="index" v-show="$route.params.type == item.goods_pid">
+                <div>
                     <img :v-html="item.goods_img" alt="" >
                 
         <!-- <img src="../assets/3C產品/3C2.png" alt="" > -->
                     <ul>
-                        <li>商品名稱 : {{item.goods_name}}</li>
-                        <li>商品價格 : {{item.goods_price}}</li>
-                        <li>商品庫存 : {{item.goods_stock}}</li>
-                        <li>商品類型 : {{item.goods_pid}}</li>
+                        <li><b>商品名稱 :</b> {{item.goods_name}}</li>
+                        <li><b>商品價格 :</b> {{item.goods_price}}</li>
+                        <li><b>商品庫存 :</b> {{item.goods_stock}}</li>
+                        <li><b>商品類型 :</b> {{item.goods_pid}}</li>
                     </ul>
+                </div>
+                <div>
+                    <button @click="addToCart(item.goods_num)">加到購物車</button>
+                </div>
             </div>
+            
         </div>
         <div id="pageList">
             <button @click="prevPage()">上一頁</button>
@@ -97,7 +103,7 @@
         },
         methods:{
             getData(){
-                let url = `/goods?goods_pid=${this.$route.params.type}`
+                let url = `/category?goods_pid=${this.$route.params.type}`
                 console.log(this.$route.params.type)
                 this.axios.get(url).then((res)=>{
                     console.log(res)
@@ -133,6 +139,14 @@
                     this.dataShow = this.totalPage[item-1]
                     console.log(this.currentPage)
                     // console.log(item)
+            },
+            addToCart(goods_num){
+                let url = '/addtocart/'+goods_num
+                this.axios.get(url).then((res)=>{
+                    console.log(res)
+                    this.$store.commit('addToCart',goods_num)
+                    console.log(this.$store.state.goods_num)
+                })
             }
         },
         mounted(){
@@ -148,12 +162,15 @@
 }
 
 #hotItemBox{
-  
   display: flex;
   flex-direction:row ;
-  align-items: center;
-  overflow-y: scroll;
-  // max-width:100%;
+  justify-content: space-between;
+  align-content: space-between;
+  margin-top: 20px;
+//   background-color:#a1a1a1;
+//   border-bottom: 1px solid #a1a1a1; ;
+//   overflow-y: scroll;
+  max-width:100%;
   flex-wrap: wrap;
   & ul{
     list-style-type: none;
@@ -161,23 +178,39 @@
   }
 }
 
-.hotItem{
-  word-break:break-all;
-  width:25%;
-}
 
 .hotItem{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
   flex:0 0 33%;
   height:200px;
-  border-top:1px solid #a1a1a1;
+//   border-top:1px solid #a1a1a1;
+//   border-right:1px solid #a1a1a1;
+//   border-left:1px solid #a1a1a1;
+  border: 1px solid #a1a1a1;
   justify-content: center;
-  margin-top: 25px;
-  & img{
-    width: 25%;
-    height:25%;
+  margin-top: 3px;
+  word-break:break-all;
+  width:25%;
+  & div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    & img{
+        width: 25%;
+        height: 25%;
+    }
+    & button{
+        background: orange;
+        color:white;
+        cursor: pointer;
+    }
+    & b{
+        background-color:#f9f2f4;
+
+    }
   }
 }
 
@@ -195,6 +228,7 @@
 #pageList{
     display: flex;
     justify-content: center;
+    margin: 20px;
     & button ,& a{
         // background-color: orange;
         // border: 1px solid black;
@@ -212,12 +246,12 @@
     cursor: pointer;
     background-color: orange;
     border: 1px solid black;
-        margin: 5px;
-        color:white;
-        border-radius:5px;
-        padding: 5px;
-        font-weight: 700;
-        text-decoration: none;
+    margin: 5px;
+    color:white;
+    border-radius:5px;
+    padding: 5px;
+    font-weight: 700;
+    text-decoration: none;
 }
 
 </style>

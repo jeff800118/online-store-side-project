@@ -19,7 +19,8 @@
 
     <div id="itemBox"  >
       <div class="itemList">
-        <router-link to="/productlist/1" @click="goGoods(goods_pid)" :class="{cur:$route.params.type==1}">
+        <!-- <router-link to="/productlist/1" @click="goGoods(goods_pid)" :class="{cur:$route.params.type==1}"> -->
+        <router-link to="/productlist/1">
           <img src="../assets/3C產品/3C家電表示圖.png" alt="">
           <span class="cur">3C用品</span>
         </router-link>
@@ -118,11 +119,13 @@
           <!-- <span>總金額 : {{ this.price*this.count }}<strong></strong></span> -->
         <!-- </li> -->
       <!-- </ul> -->
-      <div>
-        <span>已選商品</span>
+      <!-- <div> -->
+
+
+        <!-- <span>已選商品</span>
         
-        <button>結算</button>
-      </div>
+        <button>結算</button> -->
+      <!-- </div> -->
     </div>
 </div>
 </template>
@@ -141,8 +144,8 @@ import 'swiper/dist/css/swiper.min.css';
               a:1,
               imgList:[],
               category:"",
-            }
-          },
+              }
+            },
             swiperOption: {
                 autoplay:{
                     delay:4000,
@@ -158,7 +161,6 @@ import 'swiper/dist/css/swiper.min.css';
         }
     },
     beforeRouteUpdate(from,to,next){
-      // console.log(next)
       next()
     },
     components:{
@@ -169,25 +171,20 @@ import 'swiper/dist/css/swiper.min.css';
       getData(){
         let url = '/goods'
         this.axios.get(url).then((res)=>{
-          console.log(res.data)
           this.data = res.data
         })
       },
       goGoods(goods_pid){
-        console.log(goods_pid)
-        // let goods_pid = this.$route.params
+        // console.log(goods_pid)
         let url = `/category/${goods_pid}`
         this.axios.get(url).then((res)=>{
-          // console.log(res)  
-          this.$store.state.commit('')
         })
       },
       style(){
         let url = '/discountpercent'
         this.axios.get(url).then((res)=>{
-          console.log(res.data)
           this.category = res.data
-          console.log(this.category)
+          // console.log(this.category)
         })
       },
       startSwiper(){
@@ -198,7 +195,7 @@ import 'swiper/dist/css/swiper.min.css';
         }
     },
     mounted(){
-      this.getData()
+      // this.goGoods()
       this.style()
     }
   }
@@ -262,8 +259,6 @@ a{
   display: flex;
   flex-direction:row ;
   align-items: center;
-  overflow-y: scroll;
-  // max-width:100%;
   flex-wrap: wrap;
   & ul{
     list-style-type: none;

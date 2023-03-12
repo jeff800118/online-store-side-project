@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    uname:localStorage.getItem('uname')
+    uname:localStorage.getItem('uname'),
+    goods_num:localStorage.getItem('goods_num')
   },
   getters: {
   },
@@ -16,6 +17,10 @@ export default new Vuex.Store({
     },
     logout(state){
       localStorage.setItem('uname',"")
+    },
+    addToCart(state,goods_num){
+      state.goods_num = goods_num
+      localStorage.setItem('goods_num',goods_num)
     }
   },
   actions: {

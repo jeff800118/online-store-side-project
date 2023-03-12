@@ -96,6 +96,10 @@
     flex-direction: column;
     font-weight:700;
     background-color: white;
+    &::after{
+        content:"";
+        display:table;
+    }
 }
 
 #btn{
