@@ -19,7 +19,7 @@
                         <li><b>商品名稱 :</b> {{item.goods_name}}</li>
                         <li><b>商品價格 :</b> {{item.goods_price}}</li>
                         <li><b>商品庫存 :</b> {{item.goods_stock}}</li>
-                        <li><b>商品類型 :</b> {{item.goods_pid}}</li>
+                        <li><b>商品類型 :</b> {{item.goods_style}}</li>
                     </ul>
                 </div>
                 <div>
@@ -46,6 +46,8 @@
                 pageSize:6,
                 pageNum:1,
                 dataShow:[],
+                goodsList:[],
+                goodsAllList:[],
                 imgList:[
                     {pid:1,src:require('../assets/3C產品/3C1.jpg')},
                     {pid:1,src:require('../assets/3C產品/3C2.png')},
@@ -144,8 +146,10 @@
                 let url = '/addtocart/'+goods_num
                 this.axios.get(url).then((res)=>{
                     console.log(res)
-                    this.$store.commit('addToCart',goods_num)
+                    this.goodsList = res.data 
+                    this.$store.commit('addToCart',this.goodsList)
                     console.log(this.$store.state.goods_num)
+                    alert('商品已放入購物車')
                 })
             }
         },

@@ -63,6 +63,7 @@
     display:flex;
     flex-direction: column;
     list-style-type: none;
+    margin-top: 20px;
 }
 
 .footerBox{

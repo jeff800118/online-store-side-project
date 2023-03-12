@@ -9,6 +9,9 @@ export default new Vuex.Store({
     goods_num:localStorage.getItem('goods_num')
   },
   getters: {
+    totalPrice(state){
+      state.goods_price*goods_count
+    }
   },
   mutations: {
     getuname(state,uname){

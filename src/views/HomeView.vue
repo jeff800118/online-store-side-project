@@ -8,12 +8,12 @@
         @mouseover.native="stopSwiper"
         @mouseout.native="startSwiper"
         >
-          <swiper-slide clas="swiperSlide"><img src="../assets/3C產品/3C1.jpg" alt=""></swiper-slide>
-          <swiper-slide clas="swiperSlide"><img src="../assets/3C產品/3C2.png" alt=""></swiper-slide>
-          <swiper-slide clas="swiperSlide"><img src="../assets/3C產品/3C3.jpg" alt=""></swiper-slide>
+          <swiper-slide clas="swiperSlide"><img src="../assets/美妝保養/cosmetic1.jpg" alt=""></swiper-slide>
+          <swiper-slide clas="swiperSlide"><img src="../assets/美妝保養/cosmetic2.jpg" alt=""></swiper-slide>
+          <swiper-slide clas="swiperSlide"><img src="../assets/美妝保養/cosmetic3.jpg" alt=""></swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
-          <div class="swiper-button-prev" slot="button-prev"></div>
-          <div class="swiper-button-next" slot="button-next"></div>
+          <!-- <div class="swiper-button-prev" slot="button-prev"></div> -->
+          <!-- <div class="swiper-button-next" slot="button-next"></div> -->
       </swiper>
     </div>
 
@@ -73,7 +73,7 @@
       </div>
     </div> -->
 
-    <div id="comment">
+    <!-- <div id="comment">
       <table>
         <tr>
           <th>主題</th>
@@ -94,8 +94,8 @@
           <td>ㄎㄎㄎㄎ</td>
         </tr>
       </table>
-    </div>
-    <div id="cart">
+    </div> -->
+    <!-- <div id="cart">
       <h3>購物車</h3>
       <div id="cartBox">
         <span><input type="checkbox"> 全選</span>
@@ -104,7 +104,7 @@
         <span>數量</span>      
         <span>金額</span>
         <span>操作</span>
-      </div>
+      </div> -->
       <!-- <ul> -->
         <!-- <h2 v-if="goods.lenght == 0">購物車中沒有任何商品!</h2> -->
         <!-- <li v-for="(item,index) in data" :key="index"> -->
@@ -209,6 +209,7 @@ import 'swiper/dist/css/swiper.min.css';
 
 .swiper img{
   background-size: cover;
+  // width: 100%;
   margin-top:4%;
 }
 .swiperSlide{

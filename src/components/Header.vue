@@ -16,14 +16,21 @@
 
         <!-- 右側cart & 登入/註冊 -->
         <div id="loginbar">
-        <el-button type="text" @click="dialogTableVisible = true">
-            <img src="../assets/cart.svg" alt=""  id="cart">&nbsp;
+        <el-button type="text" @click="dialogTableVisible = true" >
+            <img src="../assets/cart.svg" alt=""  id="cart">&nbsp;&nbsp;&nbsp;
+            <el-badge :value="12" style="position: fixed;top:15px;right:110px"></el-badge>
         </el-button>
+        <!-- <el-badge :value="totalCount" class="item" slot="reference"></el-badge> -->
+        
         <el-dialog :modal-append-to-body="false" title="我的購物車" :visible.sync="dialogTableVisible">
-          <el-table :data="data">
-            <el-table-column property="goods_name" label="商品名稱" width="150"></el-table-column>
-            <el-table-column property="goods_stock" label="商品數量" width="200"></el-table-column>
-            <el-table-column property="goods_price" label="商品價格"></el-table-column>
+          <el-table :data="this.$store.state.goods_num">
+            <el-table-column property="" label="商品圖片" width="150"><img src="../assets/美妝保養/cosmetic1.jpg" alt="" id="cartImg"></el-table-column>
+            <el-table-column property="goods_name" label="商品名稱" width="300" center="true"></el-table-column>
+            <el-table-column  label="" width="60"><button  @click="countMinus">-</button></el-table-column>
+            <el-table-column property="goods_count" label="數量" width="50" >{{count}}</el-table-column>
+            <el-table-column label="" width="80"><button  @click="countPlus">+</button></el-table-column>
+            <el-table-column property="goods_price" label="商品單價"></el-table-column>
+            <el-table-column  label="商品總價">{{ this.$store.get }}</el-table-column>
           </el-table>
         </el-dialog>
         <div >
@@ -39,6 +46,8 @@
 </template>
 
 <script>
+import { ResolveLoader } from 'webpack-chain'
+
     export default {
         data() {
             return {
@@ -46,6 +55,59 @@
                 str:"",
                 dialogTableVisible: false,
                 dialogFormVisible: false,
+                count:1,
+                imgList:[
+                    {pid:1,src:require('../assets/3C產品/3C1.jpg')},
+                    {pid:1,src:require('../assets/3C產品/3C2.png')},
+                    {pid:1,src:require('../assets/3C產品/3C3.jpg')},
+                    {pid:1,src:require('../assets/3C產品/3C4.jpg')},
+                    {pid:1,src:require('../assets/3C產品/3C5.jpg')},
+                    {pid:1,src:require('../assets/3C產品/3C6.jpg')},
+                    {pid:1,src:require('../assets/3C產品/3C7.jpg')},
+                    {pid:1,src:require('../assets/3C產品/3C8.jpg')},
+                    {pid:1,src:require('../assets/3C產品/3C9.jpg')},
+                    {pid:1,src:require('../assets/3C產品/3C10.jpg')},
+                    {pid:2,src:require('../assets/運動戶外/outfit1.jpg')},
+                    {pid:2,src:require('../assets/運動戶外/outfit2.jpg')},
+                    {pid:2,src:require('../assets/運動戶外/outfit3.jpg')},
+                    {pid:2,src:require('../assets/運動戶外/outfit4.jpg')},
+                    {pid:2,src:require('../assets/運動戶外/outfit5.jpg')},
+                    {pid:2,src:require('../assets/運動戶外/outfit6.jpg')},
+                    {pid:2,src:require('../assets/運動戶外/outfit7.jpg')},
+                    {pid:2,src:require('../assets/運動戶外/outfit8.jpg')},
+                    {pid:2,src:require('../assets/運動戶外/outfit9.jpg')},
+                    {pid:2,src:require('../assets/運動戶外/outfit10.jpg')},
+                    {pid:3,src:require('../assets/家具電器/furniture1.jpg')},
+                    {pid:3,src:require('../assets/家具電器/furniture2.jpg')},
+                    {pid:3,src:require('../assets/家具電器/furniture3.jpg')},
+                    {pid:3,src:require('../assets/家具電器/furniture4.jpg')},
+                    {pid:3,src:require('../assets/家具電器/furniture5.jpg')},
+                    {pid:3,src:require('../assets/家具電器/furniture6.jpg')},
+                    {pid:3,src:require('../assets/家具電器/furniture7.jpg')},
+                    {pid:3,src:require('../assets/家具電器/furniture8.jpg')},
+                    {pid:3,src:require('../assets/家具電器/furniture9.jpg')},
+                    {pid:3,src:require('../assets/家具電器/furniture10.jpg')},
+                    {pid:4,src:require('../assets/生活用品/daily1.jpg')},
+                    {pid:4,src:require('../assets/生活用品/daily2.jpg')},
+                    {pid:4,src:require('../assets/生活用品/daily3.jpg')},
+                    {pid:4,src:require('../assets/生活用品/daily4.jpg')},
+                    {pid:4,src:require('../assets/生活用品/daily5.jpg')},
+                    {pid:4,src:require('../assets/生活用品/daily6.jpg')},
+                    {pid:4,src:require('../assets/生活用品/daily7.jpg')},
+                    {pid:4,src:require('../assets/生活用品/daily8.jpg')},
+                    {pid:4,src:require('../assets/生活用品/daily9.jpg')},
+                    {pid:4,src:require('../assets/生活用品/daily10.jpg')},
+                    {pid:5,src:require('../assets/美妝保養/cosmetic1.jpg')},
+                    {pid:5,src:require('../assets/美妝保養/cosmetic2.jpg')},
+                    {pid:5,src:require('../assets/美妝保養/cosmetic3.jpg')},
+                    {pid:5,src:require('../assets/美妝保養/cosmetic4.jpg')},
+                    {pid:5,src:require('../assets/美妝保養/cosmetic5.jpg')},
+                    {pid:5,src:require('../assets/美妝保養/cosmetic6.jpg')},
+                    {pid:5,src:require('../assets/美妝保養/cosmetic7.jpg')},
+                    {pid:5,src:require('../assets/美妝保養/cosmetic8.jpg')},
+                    {pid:5,src:require('../assets/美妝保養/cosmetic9.jpg')},
+                    {pid:5,src:require('../assets/美妝保養/cosmetic10.jpg')}
+                ],
             }
         },
         methods:{
@@ -67,7 +129,28 @@
                 this.axios.get(url).then((res)=>{
                     this.data = res.data
                 })
-            }
+            },
+            countPlus(){
+                if(this.$store.state.goods_num.goods_count > 10){
+                    alert('購買數量達上限')
+                    return;
+                }else if(this.$store.state.goods_num.goods_count > this.$store.state.goods_num.goods_stock){
+                    alert('庫存不夠')
+                    return;
+                }else{
+                    this.$store.state.goods_num.goods_count++
+                    console.log(this.$store.state.goods_nu.goods_count++)
+                }
+            },
+            countMinus(){
+                if(this.$store.state.goods_num.goods_count == 0 ){
+                    alert('數量不可低於0')
+                    return;
+                }else{
+                    this.$store.state.goods_num.goods_count--
+                    console.log(this.$store.state.goods_num.goods_count--)
+                }
+            },
         },
         mounted(){
             this.getData()
@@ -121,7 +204,6 @@
 #topic{
     flex-grow:1;
     font-weight: bolder;
-    pading:10px;
     &>a{
         margin: 0;
         font-size:40px;
@@ -164,6 +246,12 @@
     vertical-align:super;
 }
 
+#cartImg{
+    width:60%;
+    height:60%;
+}
+
+
 // .searchBox{
 //     padding-top:20px ;
 //     flex-grow:1;
@@ -176,5 +264,7 @@
 //         vertical-align: middle;
 //     } 
 // }
+
+
 
 </style>
