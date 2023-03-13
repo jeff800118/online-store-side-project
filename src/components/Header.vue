@@ -31,6 +31,7 @@
             <el-table-column label="" width="80"><button  @click="countPlus">+</button></el-table-column>
             <el-table-column property="goods_price" label="商品單價"></el-table-column>
             <el-table-column  label="商品總價">{{ this.$store.state.goods_num[0].goods_price * this.count }}</el-table-column>
+            <!-- <el-table-column  label="商品總價">{{ this.$store.state.goods_num[0].goods_price * this.count }}</el-table-column> -->
           </el-table>
         </el-dialog>
         
