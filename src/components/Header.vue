@@ -15,38 +15,34 @@
         </div>
 
         <!-- 右側cart & 登入/註冊 -->
-        <div id="loginbar">
+        <div id="loginbar" >
         <el-button type="text" @click="dialogTableVisible = true" >
-            <img src="../assets/cart.svg" alt=""  id="cart">&nbsp;&nbsp;&nbsp;
-            <el-badge :value="12" style="position: fixed;top:15px;right:110px"></el-badge>
+            <img src="../assets/cart.svg" alt=""  id="cart">
+            <el-badge :value="value" style="bottom:30px;right:10px"></el-badge>
         </el-button>
-        <!-- <el-badge :value="totalCount" class="item" slot="reference"></el-badge> -->
-        
+        </div>
+
         <el-dialog :modal-append-to-body="false" title="我的購物車" :visible.sync="dialogTableVisible">
-          <el-table :data="this.$store.state.goods_num">
+          <el-table :data="this.$store.state.goods_num" >
             <el-table-column property="" label="商品圖片" width="150"><img src="../assets/美妝保養/cosmetic1.jpg" alt="" id="cartImg"></el-table-column>
             <el-table-column property="goods_name" label="商品名稱" width="300" center="true"></el-table-column>
-            <el-table-column  label="" width="60"><button  @click="countMinus">-</button></el-table-column>
-            <el-table-column property="goods_count" label="數量" width="50" >{{count}}</el-table-column>
+            <el-table-column label="" width="60"><button  @click="countMinus">-</button></el-table-column>
+            <el-table-column label="數量" width="50" >{{count}}</el-table-column>
             <el-table-column label="" width="80"><button  @click="countPlus">+</button></el-table-column>
             <el-table-column property="goods_price" label="商品單價"></el-table-column>
-            <el-table-column  label="商品總價">{{ this.$store.get }}</el-table-column>
+            <el-table-column  label="商品總價">{{ this.$store.state.goods_num[0].goods_price * this.count }}</el-table-column>
           </el-table>
         </el-dialog>
-        <div >
+        
+        <div>
             <span v-show="$store.state.uname">{{$store.state.uname}}你好</span>
             <span v-show="$store.state.uname" @click="$store.commit('logout')"><a href="">退出</a> </span>
             <router-link to="/login" v-show="!$store.state.uname" class="login" > &nbsp;登入 | 註冊&nbsp;</router-link>
         </div>
-        </div>
-        
-
-        
     </div>
 </template>
 
 <script>
-import { ResolveLoader } from 'webpack-chain'
 
     export default {
         data() {
@@ -56,6 +52,7 @@ import { ResolveLoader } from 'webpack-chain'
                 dialogTableVisible: false,
                 dialogFormVisible: false,
                 count:1,
+                value:2,
                 imgList:[
                     {pid:1,src:require('../assets/3C產品/3C1.jpg')},
                     {pid:1,src:require('../assets/3C產品/3C2.png')},
@@ -111,49 +108,50 @@ import { ResolveLoader } from 'webpack-chain'
             }
         },
         methods:{
-            goCart(){
-                alert('請輸入數量')
-            },
-            getCart(){
-                this.str +=`
-                    <div id="coverLayer" style="color:gray;width:100%;height:100%">
-                        <div>
-                            <div></div>
-                        <div>
-                    </div>
-                `
-                getEle
-            },
-            getData(){
-                let url = '/goods'
-                this.axios.get(url).then((res)=>{
-                    this.data = res.data
-                })
-            },
             countPlus(){
-                if(this.$store.state.goods_num.goods_count > 10){
+                if(this.count >= 10){
                     alert('購買數量達上限')
                     return;
-                }else if(this.$store.state.goods_num.goods_count > this.$store.state.goods_num.goods_stock){
+                }else if(this.count > this.$store.state.goods_num.goods_stock){
                     alert('庫存不夠')
                     return;
                 }else{
-                    this.$store.state.goods_num.goods_count++
-                    console.log(this.$store.state.goods_nu.goods_count++)
+                    this.count++
+                    console.log(this.count)
                 }
+                // if(this.$store.state.goods_num.goods_count > 10){
+                //     alert('購買數量達上限')
+                //     return;
+                // }else if(this.$store.state.goods_num.goods_count > this.$store.state.goods_num.goods_stock){
+                //     alert('庫存不夠')
+                //     return;
+                // }else{
+                //     this.$store.state.goods_num.goods_count++
+                //     console.log(this.$store.state.goods_nu.goods_count++)
+                // }
             },
             countMinus(){
-                if(this.$store.state.goods_num.goods_count == 0 ){
+                if(this.count == 0 ){
                     alert('數量不可低於0')
                     return;
                 }else{
-                    this.$store.state.goods_num.goods_count--
-                    console.log(this.$store.state.goods_num.goods_count--)
+                    this.count--
+                    console.log(this.count)
+                    //     if(this.$store.state.goods_num.goods_count == 0 ){
+                    //         alert('數量不可低於0')
+                    //         return;
+                    //     }else{
+                    //         this.$store.state.goods_num.goods_count--
+                    //         console.log(this.$store.state.goods_num.goods_count--)
+                    //     }
+                    // },
                 }
             },
         },
-        mounted(){
-            this.getData()
+        computed:{
+            totalPrice(){
+                return this.$store.getter.totalPrice
+            }
         }
     }
 </script>
@@ -174,6 +172,7 @@ import { ResolveLoader } from 'webpack-chain'
     // 容器編排設定
     display:flex;
     flex-direction:row;
+    align-items: center;
     justify-content: end;
     font-size: 1rem;
     font-weight: bolder;
@@ -229,22 +228,17 @@ import { ResolveLoader } from 'webpack-chain'
 //    & span{
 //         vertical-align:super;
 //    }
-   & a{
-    text-decoration: none;
-    color: black;
-    margin-left:5px ;
-    border:1px solid black;
-    border-radius:30px;
-    padding: 3px;
-   }
+
 }
 
 .login{
     border:1px solid black;
     border-radius:30px;
     text-decoration: none;
-    vertical-align:super;
-}
+    color: black;
+    margin-left:5px ;
+    padding: 3px;
+    }
 
 #cartImg{
     width:60%;

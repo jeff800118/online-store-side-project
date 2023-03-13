@@ -10,7 +10,7 @@ export default new Vuex.Store({
   },
   getters: {
     totalPrice(state){
-      state.goods_price*goods_count
+      state.goods_price * state.goods_count
     }
   },
   mutations: {

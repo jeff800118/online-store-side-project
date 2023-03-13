@@ -33,7 +33,7 @@
         </div>
         
         <div class="copyright">
-            <i>Ⓒ2023 達內購物商城股份有限公司. All Rights Reserved</i>
+            <i>Ⓒ2023 達內購物商城股份有限公司. All Rights Reserved | 練習用</i>
         </div>
     </div>
 </template>

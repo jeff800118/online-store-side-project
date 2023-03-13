@@ -53,6 +53,20 @@ VALUES
 (1,'男');
 
 
+-- TABLE own cart
+-- CREATE TABLE `cart` ( 
+--     `goods_num` Int KEY AUTO_INCREMENT,
+--     `goods_name` VARCHAR(255) NOT NULL
+--     `goods_price` VARCHAR(255) NOT NULL
+--     `goods_count` VARCHAR(255) NOT NULL
+-- )CHARSET UTF8;
+
+-- INSERT INTO `sex` (sex_num,sex_name)
+-- VALUES
+-- (0,'女'),
+-- (1,'男');
+
+
 --Table order
 CREATE TABLE `order` (
     `order_num` Int KEY AUTO_INCREMENT,

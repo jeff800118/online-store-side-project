@@ -8,25 +8,25 @@
             <div><router-link to ="#" :class="{cur:$route.params.type == 5}">{{$route.params.type == 5? "美妝保養":""}}</router-link></div>
         </div>
         <!-- <hr> -->
-        <div id="hotItemBox">
-            
+        <div class="hotItemBox">
             <div class="hotItem" v-for="(item,index) in dataShow" :key="index" v-show="$route.params.type == item.goods_pid">
-                <div>
-                    <img :v-html="item.goods_img" alt="" >
-                
-        <!-- <img src="../assets/3C產品/3C2.png" alt="" > -->
-                    <ul>
-                        <li><b>商品名稱 :</b> {{item.goods_name}}</li>
-                        <li><b>商品價格 :</b> {{item.goods_price}}</li>
-                        <li><b>商品庫存 :</b> {{item.goods_stock}}</li>
-                        <li><b>商品類型 :</b> {{item.goods_style}}</li>
-                    </ul>
+                <div class="goodsImg">
+                    <img :src="require(`../assets/${item.goods_img}`)" alt="" >
                 </div>
-                <div>
-                    <button @click="addToCart(item.goods_num)">加到購物車</button>
+                <div class="goodsDetail">
+                    <div>
+                        <ul>
+                            <li><b>商品名稱 :</b> {{item.goods_name}}</li>
+                            <li><b>商品價格 :</b> {{item.goods_price}}</li>
+                            <li><b>商品庫存 :</b> {{item.goods_stock}}</li>
+                            <li><b>商品類型 :</b> {{item.goods_style}}</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <button @click="addToCart(item.goods_num)">加到購物車</button>
+                    </div>
                 </div>
             </div>
-            
         </div>
         <div id="pageList">
             <button @click="prevPage()">上一頁</button>
@@ -100,13 +100,13 @@
                     {pid:5,src:require('../assets/美妝保養/cosmetic9.jpg')},
                     {pid:5,src:require('../assets/美妝保養/cosmetic10.jpg')}
                 ],
-                picList:this
+                picList:require([])
             }
         },
         methods:{
             getData(){
                 let url = `/category?goods_pid=${this.$route.params.type}`
-                console.log(this.$route.params.type)
+                // console.log(this.$route.params.type)
                 this.axios.get(url).then((res)=>{
                     console.log(res)
                     this.data = res.data
@@ -119,7 +119,8 @@
                     // console.log(this.totalPage[0])
 
                     this.dataShow = this.totalPage[this.currentPage]
-                    console.log(this.dataShow[0].goods_img)
+                    // console.log(this.dataShow[0].goods_img)
+                    this.picList = this.dataShow
                 })
             },
             prevPage(){
@@ -147,6 +148,9 @@
                 this.axios.get(url).then((res)=>{
                     console.log(res)
                     this.goodsList = res.data 
+                    // this.goodsAllList.concat(this.goodsList)
+                    // console.log(this.goodsAllList)   
+                    // console.log(this.goodsList)
                     this.$store.commit('addToCart',this.goodsList)
                     console.log(this.$store.state.goods_num)
                     alert('商品已放入購物車')
@@ -154,7 +158,7 @@
             }
         },
         mounted(){
-            this.getData(1)
+            this.getData()
         }
     }
 </script>
@@ -165,15 +169,12 @@
     margin-top: 100px;
 }
 
-#hotItemBox{
+.hotItemBox{
   display: flex;
   flex-direction:row ;
-  justify-content: space-between;
-  align-content: space-between;
+  justify-content: space-around;
+//   align-content: space-between;
   margin-top: 20px;
-//   background-color:#a1a1a1;
-//   border-bottom: 1px solid #a1a1a1; ;
-//   overflow-y: scroll;
   max-width:100%;
   flex-wrap: wrap;
   & ul{
@@ -190,32 +191,38 @@
   flex-wrap: wrap;
   flex:0 0 33%;
   height:200px;
-//   border-top:1px solid #a1a1a1;
-//   border-right:1px solid #a1a1a1;
-//   border-left:1px solid #a1a1a1;
   border: 1px solid #a1a1a1;
   justify-content: center;
   margin-top: 3px;
   word-break:break-all;
   width:25%;
-  & div{
+  & .goodsImg{
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     & img{
-        width: 25%;
+        width: 100%;
         height: 25%;
+    }
+  }
+  & .goodsDetail{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    & ul{
+        word-break: break-all;
     }
     & button{
         background: orange;
         color:white;
         cursor: pointer;
+        width: 100px;
+        }
     }
     & b{
         background-color:#f9f2f4;
-
     }
-  }
 }
 
 .cur {
