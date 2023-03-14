@@ -84,12 +84,20 @@
             },
             getUserData(){
                 let url = '/queryUserCart'
-                let params = `goods_uname=${this.$store.state.uname}`
-                this.axios.get(url,params).then((res)=>{
+                // let params = `goods_uname=${this.$store.state.uname}`
+                this.axios.get(url).then((res)=>{
                     console.log(res)
                 })
             }
         },
+        mounted(){
+            // if(!this.$store.state.uname){
+            //     return
+            // }else{
+                this.getUserData()
+            //     console.log(this.data)
+            // }
+        }
     }
 </script>
 
