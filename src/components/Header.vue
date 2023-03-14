@@ -31,7 +31,6 @@
             <el-table-column label="" width="80"><button  @click="countPlus">+</button></el-table-column>
             <el-table-column property="goods_price" label="商品單價"></el-table-column>
             <el-table-column  label="商品總價">{{ this.$store.state.goods_num[0].goods_price * this.count }}</el-table-column>
-            <!-- <el-table-column  label="商品總價">{{ this.$store.state.goods_num[0].goods_price * this.count }}</el-table-column> -->
           </el-table>
         </el-dialog>
         
@@ -49,63 +48,10 @@
         data() {
             return {
                 data: "",
-                str:"",
                 dialogTableVisible: false,
                 dialogFormVisible: false,
                 count:1,
                 value:2,
-                imgList:[
-                    {pid:1,src:require('../assets/3C產品/3C1.jpg')},
-                    {pid:1,src:require('../assets/3C產品/3C2.png')},
-                    {pid:1,src:require('../assets/3C產品/3C3.jpg')},
-                    {pid:1,src:require('../assets/3C產品/3C4.jpg')},
-                    {pid:1,src:require('../assets/3C產品/3C5.jpg')},
-                    {pid:1,src:require('../assets/3C產品/3C6.jpg')},
-                    {pid:1,src:require('../assets/3C產品/3C7.jpg')},
-                    {pid:1,src:require('../assets/3C產品/3C8.jpg')},
-                    {pid:1,src:require('../assets/3C產品/3C9.jpg')},
-                    {pid:1,src:require('../assets/3C產品/3C10.jpg')},
-                    {pid:2,src:require('../assets/運動戶外/outfit1.jpg')},
-                    {pid:2,src:require('../assets/運動戶外/outfit2.jpg')},
-                    {pid:2,src:require('../assets/運動戶外/outfit3.jpg')},
-                    {pid:2,src:require('../assets/運動戶外/outfit4.jpg')},
-                    {pid:2,src:require('../assets/運動戶外/outfit5.jpg')},
-                    {pid:2,src:require('../assets/運動戶外/outfit6.jpg')},
-                    {pid:2,src:require('../assets/運動戶外/outfit7.jpg')},
-                    {pid:2,src:require('../assets/運動戶外/outfit8.jpg')},
-                    {pid:2,src:require('../assets/運動戶外/outfit9.jpg')},
-                    {pid:2,src:require('../assets/運動戶外/outfit10.jpg')},
-                    {pid:3,src:require('../assets/家具電器/furniture1.jpg')},
-                    {pid:3,src:require('../assets/家具電器/furniture2.jpg')},
-                    {pid:3,src:require('../assets/家具電器/furniture3.jpg')},
-                    {pid:3,src:require('../assets/家具電器/furniture4.jpg')},
-                    {pid:3,src:require('../assets/家具電器/furniture5.jpg')},
-                    {pid:3,src:require('../assets/家具電器/furniture6.jpg')},
-                    {pid:3,src:require('../assets/家具電器/furniture7.jpg')},
-                    {pid:3,src:require('../assets/家具電器/furniture8.jpg')},
-                    {pid:3,src:require('../assets/家具電器/furniture9.jpg')},
-                    {pid:3,src:require('../assets/家具電器/furniture10.jpg')},
-                    {pid:4,src:require('../assets/生活用品/daily1.jpg')},
-                    {pid:4,src:require('../assets/生活用品/daily2.jpg')},
-                    {pid:4,src:require('../assets/生活用品/daily3.jpg')},
-                    {pid:4,src:require('../assets/生活用品/daily4.jpg')},
-                    {pid:4,src:require('../assets/生活用品/daily5.jpg')},
-                    {pid:4,src:require('../assets/生活用品/daily6.jpg')},
-                    {pid:4,src:require('../assets/生活用品/daily7.jpg')},
-                    {pid:4,src:require('../assets/生活用品/daily8.jpg')},
-                    {pid:4,src:require('../assets/生活用品/daily9.jpg')},
-                    {pid:4,src:require('../assets/生活用品/daily10.jpg')},
-                    {pid:5,src:require('../assets/美妝保養/cosmetic1.jpg')},
-                    {pid:5,src:require('../assets/美妝保養/cosmetic2.jpg')},
-                    {pid:5,src:require('../assets/美妝保養/cosmetic3.jpg')},
-                    {pid:5,src:require('../assets/美妝保養/cosmetic4.jpg')},
-                    {pid:5,src:require('../assets/美妝保養/cosmetic5.jpg')},
-                    {pid:5,src:require('../assets/美妝保養/cosmetic6.jpg')},
-                    {pid:5,src:require('../assets/美妝保養/cosmetic7.jpg')},
-                    {pid:5,src:require('../assets/美妝保養/cosmetic8.jpg')},
-                    {pid:5,src:require('../assets/美妝保養/cosmetic9.jpg')},
-                    {pid:5,src:require('../assets/美妝保養/cosmetic10.jpg')}
-                ],
             }
         },
         methods:{
@@ -120,16 +66,7 @@
                     this.count++
                     console.log(this.count)
                 }
-                // if(this.$store.state.goods_num.goods_count > 10){
-                //     alert('購買數量達上限')
-                //     return;
-                // }else if(this.$store.state.goods_num.goods_count > this.$store.state.goods_num.goods_stock){
-                //     alert('庫存不夠')
-                //     return;
-                // }else{
-                //     this.$store.state.goods_num.goods_count++
-                //     console.log(this.$store.state.goods_nu.goods_count++)
-                // }
+
             },
             countMinus(){
                 if(this.count == 0 ){
@@ -138,22 +75,9 @@
                 }else{
                     this.count--
                     console.log(this.count)
-                    //     if(this.$store.state.goods_num.goods_count == 0 ){
-                    //         alert('數量不可低於0')
-                    //         return;
-                    //     }else{
-                    //         this.$store.state.goods_num.goods_count--
-                    //         console.log(this.$store.state.goods_num.goods_count--)
-                    //     }
-                    // },
                 }
             },
         },
-        computed:{
-            totalPrice(){
-                return this.$store.getter.totalPrice
-            }
-        }
     }
 </script>
 
@@ -213,23 +137,12 @@
     }   
 }
 
-
 // 登入條與cart
-
 
 #loginbar {
     display: flex;
     flex-direction: row;
     align-items: center;
-    // & img{
-    //     box-sizing: border-box;
-    //     cursor: pointer;
-    //     padding-top:5px;
-    // }
-//    & span{
-//         vertical-align:super;
-//    }
-
 }
 
 .login{
@@ -245,20 +158,6 @@
     width:60%;
     height:60%;
 }
-
-
-// .searchBox{
-//     padding-top:20px ;
-//     flex-grow:1;
-//     box-sizing: border-box;
-//     height:25px;
-//     & input{
-//         vertical-align: middle;
-//     }
-//     & button{
-//         vertical-align: middle;
-//     } 
-// }
 
 
 
