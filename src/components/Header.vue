@@ -17,14 +17,14 @@
         <!-- 右側cart & 登入/註冊 -->
         <div id="loginbar" >
         <el-button type="text" @click="dialogTableVisible = true" >
-            <img src="../assets/cart.svg" alt=""  id="cart">
+            <img src="../assets/cart.svg" alt=""  id="cart" @click="checkUser()">
             <el-badge :value="value" style="bottom:30px;right:10px"></el-badge>
         </el-button>
         </div>
 
-        <el-dialog :modal-append-to-body="false" title="我的購物車" :visible.sync="dialogTableVisible">
-          <el-table :data="this.$store.state.goods_num" >
-            <el-table-column property="" label="商品圖片" width="150"><img src="../assets/美妝保養/cosmetic1.jpg" alt="" id="cartImg"></el-table-column>
+        <el-dialog :modal-append-to-body="false" title="我的購物車" :visible.sync="dialogTableVisible" v-if="this.$store.state.uname">
+          <el-table :data="this.$store.state.goods_num" @click="centerDialogVisible = true">
+            <!-- <el-table-column property="" label="商品圖片" width="150" ><img :src="require(`../assets/${this.$store.state.goods_num[0].goods_img}`)" alt="" id="cartImg"></el-table-column> -->
             <el-table-column property="goods_name" label="商品名稱" width="300" center="true"></el-table-column>
             <el-table-column label="" width="60"><button  @click="countMinus">-</button></el-table-column>
             <el-table-column label="數量" width="50" >{{count}}</el-table-column>
@@ -49,7 +49,7 @@
             return {
                 data: "",
                 dialogTableVisible: false,
-                dialogFormVisible: false,
+                centerDialogVisible: false,
                 count:1,
                 value:2,
             }
@@ -77,6 +77,18 @@
                     console.log(this.count)
                 }
             },
+            checkUser(){
+                if(!this.$store.state.uname){
+                    this.$router.push('/login')
+                }
+            },
+            getUserData(){
+                let url = '/queryUserCart'
+                let params = `goods_uname=${this.$store.state.uname}`
+                this.axios.get(url,params).then((res)=>{
+                    console.log(res)
+                })
+            }
         },
     }
 </script>

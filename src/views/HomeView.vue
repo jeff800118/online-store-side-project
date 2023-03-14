@@ -82,16 +82,16 @@
           <th>時間</th>
         </tr>
         <tr>
-          <td>ㄎㄎㄎㄎ</td>
-          <td>ㄎㄎㄎㄎ</td>
-          <td>ㄎㄎㄎㄎ</td>
-          <td>ㄎㄎㄎㄎ</td>
+          <td>測試</td>
+          <td>測試</td>
+          <td>測試</td>
+          <td>測試</td>
         </tr>
         <tr>
-          <td>ㄎㄎㄎㄎ</td>
-          <td>ㄎㄎㄎㄎ</td>
-          <td>ㄎㄎㄎㄎ</td>
-          <td>ㄎㄎㄎㄎ</td>
+          <td>測試</td>
+          <td>測試</td>
+          <td>測試</td>
+          <td>測試</td>
         </tr>
       </table>
     </div> -->

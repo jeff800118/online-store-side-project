@@ -21,7 +21,7 @@
                     </ul>
                 </div>
                 <div class="addToCartBtn">
-                    <button @click="addToCart(item.goods_num)">加到購物車</button>
+                    <button @click="addAllToCart(item.goods_num)">加到購物車</button>
                 </div>
             </div>
             <!-- 家道購物車按鈕 -->
@@ -45,8 +45,13 @@
                 pageSize:6,
                 pageNum:1,
                 dataShow:[],
-                goodsList:[],
+                goodsList:"",
                 goodsAllList:[],
+                goods_count:"",
+                goods_img:"",
+                goods_name:"",
+                goods_num:"",
+                goods_price:"",
             }
         },
         methods:{
@@ -90,14 +95,39 @@
                     // console.log(item)
             },
             addToCart(goods_num){
-                let url = '/addtocart/'+goods_num
+                let url = '/addToCart/'+goods_num
                 this.axios.get(url).then((res)=>{
-                    console.log(res)
-                    this.goodsList = res.data 
+                    // console.log(res.data[0].goods_num)
+                    this.goodsList = res.data[0]
+                    this.goods_count = res.data[0].goods_count
+                    // console.log(this.goods_count)
+                    this.goods_img = res.data[0].goods_img
+                    // console.log(this.goods_img)
+                    this.goods_name = res.data[0].goods_name
+                    // console.log(this.goods_name)
+                    this.goods_price = res.data[0].goods_price
+                    // console.log(this.goods_price)
+                    this.goods_num = res.data[0].goods_num
+                    // console.log(this.goods_pid)
                     this.$store.commit('addToCart',this.goodsList)
-                    console.log(this.$store.state.goods_num)
+                    // console.log(this.$store.state.goods_num[0].goods_name)
                     alert('商品已放入購物車')
                 })
+
+                
+            },
+            addToUserCart(){
+                let url1 = '/userCart'
+                let params = `goods_uname=${this.$store.state.uname}&goods_name=${this.goods_name}&goods_price=${this.goods_price}&goods_count=1&goods_pid=${this.goods_num}`
+                this.axios.post(url1,params).then((res)=>{
+                    console.log(res)
+                })
+            },
+            addAllToCart(goods_num){
+                this.addToCart(goods_num)
+                setTimeout(()=>{
+                    this.addToUserCart()
+                },500)   
             }
         },
         mounted(){
