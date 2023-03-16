@@ -64,11 +64,12 @@ VALUES
 
 -- TABLE own cart
 CREATE TABLE `cart` ( 
-    `goods_num` Int KEY AUTO_INCREMENT,
-    `goods_name` VARCHAR(255) NOT NULL
-    `goods_price` VARCHAR(255) NOT NULL
-    `goods_count` VARCHAR(255) NOT NULL
-    `goods_pid` VARCHAR(255) NOT NULL
+    `cart_num` Int KEY AUTO_INCREMENT,
+    `cart_name` VARCHAR(255) NOT NULL,
+    `cart_price` VARCHAR(255) NOT NULL,
+    `cart_count` VARCHAR(255) NOT NULL,
+    `cart_pid` VARCHAR(255) NOT NULL,
+    `cart_img` VARCHAR(255) NOT NULL
 )CHARSET UTF8;
 
 INSERT INTO `cart` (sex_num,sex_name)

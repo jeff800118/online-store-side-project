@@ -30,7 +30,7 @@
                 let params = `account_name=${this.uname}&account_password=${this.$md5(this.upwd)}`
                 this.axios.post(url,params).then((res)=>{
                     console.log(res)
-                    if(res.data == 1){
+                    if(res.data == 1 ){
                         alert('登入成功')
                         this.$store.commit('getuname',this.uname)
                         this.$router.push('/')

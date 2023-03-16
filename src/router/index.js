@@ -2,11 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Login from '../views/Login.vue'
-import Daily from '../views/Daily.vue'
-import Electric from '../views/Electric.vue'
-import Cosmetic from '../views/Cosmetic.vue'
-import Outfit from '../views/Outfit.vue'
-import Furniture from '../views/Furniture.vue'
 import Reg from '../views/Reg.vue'
 import ProductList from '../views/ProductList.vue'
 
@@ -22,31 +17,6 @@ const routes = [
     path: '/reg',
     name: 'Reg',
     component: Reg
-  },
-  {
-    path: '/furniture',
-    name: 'Furniture',
-    component: Furniture
-  },
-  {
-    path: '/cosmetic',
-    name: 'Cosmetic',
-    component: Cosmetic
-  },
-  {
-    path: '/outfit',
-    name: 'Outfit',
-    component: Outfit
-  },
-  {
-    path: '/electric',
-    name: 'Electric',
-    component: Electric
-  },
-  {
-    path: '/daily',
-    name: 'Daily',
-    component: Daily
   },
   {
     path: '/login',

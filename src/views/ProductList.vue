@@ -46,13 +46,11 @@
                 pageNum:1,
                 dataShow:[],
                 goodsList:"",
-                goodsAllList:[],
-                goods_count:"",
-                goods_img:"",
-                goods_name:"",
-                goods_num:"",
-                goods_price:"",
-                goods_img:"",
+                cart_count:"",
+                cart_img:"",
+                cart_name:"",
+                cart_pid:"",
+                cart_price:"",
             }
         },
         methods:{
@@ -100,17 +98,16 @@
                 this.axios.get(url).then((res)=>{
                     // console.log(res.data[0].goods_num)
                     this.goodsList = res.data[0]
-                    this.goods_count = res.data[0].goods_count
+                    this.cart_count = res.data[0].goods_count
                     // console.log(this.goods_count)
-                    this.goods_img = res.data[0].goods_img
+                    this.cart_img = res.data[0].goods_img
                     // console.log(this.goods_img)
-                    this.goods_name = res.data[0].goods_name
+                    this.cart_name = res.data[0].goods_name
                     // console.log(this.goods_name)
-                    this.goods_price = res.data[0].goods_price
+                    this.cart_price = res.data[0].goods_price
                     // console.log(this.goods_price)
-                    this.goods_num = res.data[0].goods_num
+                    this.cart_pid = res.data[0].goods_num
                     // console.log(this.goods_pid)
-                    this.goods_img = res.data[0].goods_img
                     this.$store.commit('addToCart',this.goodsList)
                     // console.log(this.$store.state.goods_num[0].goods_name)
                     alert('商品已放入購物車')
@@ -120,7 +117,7 @@
             },
             addToUserCart(){
                 let url1 = '/userCart'
-                let params = `goods_uname=${this.$store.state.uname}&goods_name=${this.goods_name}&goods_price=${this.goods_price}&goods_count=1&goods_pid=${this.goods_num}&goods_img=${this.goods_img}`
+                let params = `cart_uname=${this.$store.state.uname}&cart_name=${this.cart_name}&cart_price=${this.cart_price}&cart_count=1&cart_pid=${this.cart_pid}&cart_img=${this.cart_img}`
                 this.axios.post(url1,params).then((res)=>{
                     console.log(res)
                 })
