@@ -3,10 +3,9 @@
         <div id="loginbox">
             <!-- <img src="../assets/loginIMG.jpg" alt=""> -->
             帳號 : <input type="text" placeholder="請輸入手機號碼" v-model="uname">
-            密碼 : <input type="password" placeholder="請輸入密碼" v-model="upwd">
-            確認密碼 : <input type="password" placeholder="請再次輸入密碼" v-model="reupwd"><br>
+            密碼 : <input type="password" placeholder="請輸入密碼" v-model="upwd"><br>
             <button id="btn" @click="getData()">登入</button>
-            <p>忘記密碼</p>
+            <router-link to="/">忘記密碼?</router-link>
             <p>還不是會員嗎?<a href="/Reg">立即註冊</a></p>
         </div>
     </div>
