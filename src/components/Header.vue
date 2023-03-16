@@ -23,15 +23,16 @@
         </div>
 
         <el-dialog :modal-append-to-body="false" title="我的購物車" :visible.sync="dialogTableVisible" v-if="this.$store.state.uname">
-          <el-table :data="this.$store.state.goods_num" @click="centerDialogVisible = true">
-            <!-- <el-table-column property="" label="商品圖片" width="150" ><img :src="require(`../assets/${this.$store.state.goods_num[0].goods_img}`)" alt="" id="cartImg"></el-table-column> -->
-            <el-table-column property="goods_name" label="商品名稱" width="300" center="true"></el-table-column>
+          <el-table :data="this.data" @click="centerDialogVisible = true">
+            <el-table-column property="" label="商品圖片" width="150" ><img :src="require(`../assets/${this.data[0].goods_img}`)" alt="" id="cartImg" ></el-table-column>
+            <el-table-column property="goods_name" label="商品名稱" width="300" center="true" class="cartTextCenter"></el-table-column>
             <el-table-column label="" width="60"><button  @click="countMinus">-</button></el-table-column>
             <el-table-column label="數量" width="50" >{{count}}</el-table-column>
             <el-table-column label="" width="80"><button  @click="countPlus">+</button></el-table-column>
             <el-table-column property="goods_price" label="商品單價"></el-table-column>
-            <el-table-column  label="商品總價">{{ this.$store.state.goods_num[0].goods_price * this.count }}</el-table-column>
+            <el-table-column  label="商品總價">{{ this.data[0].goods_price * this.data[0].goods_count }}</el-table-column>
           </el-table>
+          <el-button slot="footer"  @click="centerDialogVisible = true">結帳</el-button>
         </el-dialog>
         
         <div>
@@ -49,7 +50,7 @@
             return {
                 data: "",
                 dialogTableVisible: false,
-                centerDialogVisible: false,
+                centerDialogVisible: true,
                 count:1,
                 value:2,
             }
@@ -87,8 +88,12 @@
                 // let params = `goods_uname=${this.$store.state.uname}`
                 this.axios.get(url).then((res)=>{
                     console.log(res)
+                    this.data = res.data
                 })
-            }
+            },
+            // checkout(){
+                
+            // }
         },
         mounted(){
             // if(!this.$store.state.uname){
@@ -177,6 +182,10 @@
 #cartImg{
     width:60%;
     height:60%;
+}
+
+.cartTextCenter{
+    text-align: center;
 }
 
 

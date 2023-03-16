@@ -29,7 +29,7 @@
         </div>
         <div id="pageList">
             <button @click="prevPage()">上一頁</button>
-            <a :class="{pagination:currentPage == item - 1}" @click="page(item)" v-for="(item,index) in pageNum" :key="index" >{{ item }}</a>
+            <a :class="{pagination:currentPage == item - 1}" @click="page(index)" v-for="(item,index) in pageNum" :key="index" >{{ index+1 }}</a>
             <button  @click="nextPage()" >下一頁</button>
         </div>
     </div>
@@ -88,9 +88,9 @@
                     this.dataShow = this.totalPage[++this.currentPage]
                 }
             },
-            page(item){
-                    this.currentPage = item
-                    this.dataShow = this.totalPage[item-1]
+            page(index){
+                    this.currentPage = index
+                    this.dataShow = this.totalPage[index]
                     console.log(this.currentPage)
                     // console.log(item)
             },
