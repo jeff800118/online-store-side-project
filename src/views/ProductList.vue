@@ -52,6 +52,7 @@
                 goods_name:"",
                 goods_num:"",
                 goods_price:"",
+                goods_img:"",
             }
         },
         methods:{
@@ -109,6 +110,7 @@
                     // console.log(this.goods_price)
                     this.goods_num = res.data[0].goods_num
                     // console.log(this.goods_pid)
+                    this.goods_img = res.data[0].goods_img
                     this.$store.commit('addToCart',this.goodsList)
                     // console.log(this.$store.state.goods_num[0].goods_name)
                     alert('商品已放入購物車')
@@ -118,7 +120,7 @@
             },
             addToUserCart(){
                 let url1 = '/userCart'
-                let params = `goods_uname=${this.$store.state.uname}&goods_name=${this.goods_name}&goods_price=${this.goods_price}&goods_count=1&goods_pid=${this.goods_num}`
+                let params = `goods_uname=${this.$store.state.uname}&goods_name=${this.goods_name}&goods_price=${this.goods_price}&goods_count=1&goods_pid=${this.goods_num}&goods_img=${this.goods_img}`
                 this.axios.post(url1,params).then((res)=>{
                     console.log(res)
                 })
