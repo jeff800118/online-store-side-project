@@ -1,19 +1,29 @@
-# vuesideproject
+作品名稱 : 線上商城
 
-## Project setup
-```
-npm install
-```
+後端 :
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+1、使用技術 : express 框架架構後端系統，使用 node.js 進行編寫
 
-### Compiles and minifies for production
-```
-npm run build
-```
+2、DB 資料庫 : 利用 MYSQL 建構商品資訊、用戶資料庫
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+前端 :
+
+1、使用框架 : Vue-Cli
+
+2、介面優化使用技術 : Swiper 用在輪播圖效果的呈現、element UI 使用 Dialog 組件製作出 Cart 功能
+
+3、使用 Axios 插件介接後台 API 拿取 DB 資料庫後，進行前端頁面的渲染
+
+4、利用 VueX 中的 State 跟 Mutation 進行資料的保存，供各個組件間的資訊共用
+
+5、利用 Vue Router 進行組件間 SPA 的跳轉
+
+未完成項目:
+
+1、登入頁面&註冊頁面使用正則表達式做卡控
+
+2、用戶購物車內的商品照片渲染
+
+3、購物車的價格計算
+
+4、購物車與後台資料庫的串接連結 & 結帳功能
