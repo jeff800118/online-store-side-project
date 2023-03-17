@@ -117,7 +117,7 @@
             },
             addToUserCart(){
                 let url1 = '/userCart'
-                let params = `cart_uname=${this.$store.state.uname}&cart_name=${this.cart_name}&cart_price=${this.cart_price}&cart_count=1&cart_pid=${this.cart_pid}&cart_img=${this.cart_img}`
+                let params = `cart_uname=${this.$store.state.uname}&cart_name=${this.cart_name}&cart_price=${this.cart_price}&cart_count=1&cart_pid=${this.cart_pid}&cart_img=${this.cart_img}&cart_totalPrice=${this.price*1}`
                 this.axios.post(url1,params).then((res)=>{
                     console.log(res)
                 })
@@ -169,7 +169,7 @@
   flex-direction: column;
   align-items: center;
   flex:0 0 33% ;
-  height:200px;
+  height:250px;
   flex-wrap: wrap;
   border: 1px solid #a1a1a1;
   justify-content: center;

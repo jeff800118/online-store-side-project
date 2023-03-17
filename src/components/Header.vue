@@ -22,18 +22,24 @@
         </el-button>
         </div>
 
-        <el-dialog :modal-append-to-body="false" title="我的購物車" :visible.sync="dialogTableVisible" v-if="this.$store.state.uname">
+        <el-dialog 
+        :modal-append-to-body="false" 
+        title="我的購物車" 
+        :visible.sync="dialogTableVisible" 
+        v-if="this.$store.state.uname" 
+        :center="true"
+        >
           <el-table :data="data" @click="centerDialogVisible = true">
-            <el-table-column property="" label="商品圖片" width="150" ><img :src="require(`../assets/${this.data[0].cart_img}`)" alt="" id="cartImg" ></el-table-column>
+            <el-table-column property="" label="商品圖片" width="150" ><img  :src="require(`../assets/${this.data[0].cart_img}`)" alt="" id="cartImg" ></el-table-column>
             <el-table-column property="cart_name" label="商品名稱" width="300" center="true" class="cartTextCenter"></el-table-column>
             
             <el-table-column label="" width="60"><button  @click="countMinus(this.data.cart_num)">-</button></el-table-column>
             <el-table-column label="數量" width="50" property="cart_count"></el-table-column>
-            <el-table-column label="" width="80"><button  @click="countPlus(item.cart_num)">+</button></el-table-column>
+            <el-table-column label="" width="80"><button  @click="countPlus(data)">+</button></el-table-column>
             
             <el-table-column property="cart_price" label="商品單價"></el-table-column>
-            <el-table-column  label="商品總價" >{{ this.data[0].cart_price * this.data[0].cart_count }}</el-table-column>
-            <!-- <el-table-column  label="商品總價" property="{{cart_price * cart_count}}">{{ this.data[0].goods_price * this.data[0].goods_count }}</el-table-column> -->
+            <el-table-column  label="商品總價" property="cart_totalPrice"></el-table-column>
+            <!-- <el-table-column  label="商品總價" property="{{cart_price * cart_count}}s">{{ this.data[0].goods_price * this.data[0].goods_count }}</el-table-column> -->
           </el-table>
           <el-button slot="footer"  @click="centerDialogVisible = true">結帳</el-button>
         </el-dialog>
@@ -57,24 +63,29 @@
                 count:1,
                 value:2,
             }
-        },
+        },  
         methods:{
-            countPlus(cart_num){
+            countPlus(data){
                 let url = '/updateCart'
-                let params = `cart.goods_count=${this.count++}`
+                let urlParms = new URLSearchParams(location.search);
+                // let $uid = urlParms.get('cart_num');
+                console.log(urlParms)
+                let params = `cart_num_=${$uid}`
+                console.log($uid)
+                console.log(data)
                 this.axios.post(url,params).then((res)=>{
                     console.log(res)
-                    res.data[goods_num].goods_count++
-                    if(res.data[goods_num].goods_count >= 10){
-                        alert('購買數量達上限')
-                        return;
-                    }else if(res.data[goods_num].goods_count > res.data[goods_num].goods_stock){
-                        alert('庫存不夠')
-                        return;
-                    }else{
-                        this.count++
-                        console.log(this.count)
-                    }
+                    // res.data[goods_num].goods_count++
+                    // if(res.data[goods_num].goods_count >= 10){
+                    //     alert('購買數量達上限')
+                    //     return;
+                    // }else if(res.data[goods_num].goods_count > res.data[goods_num].goods_stock){
+                    //     alert('庫存不夠')
+                    //     return;
+                    // }else{
+                    //     this.count++
+                    //     console.log(this.count)
+                    // }
                 })
             },
             countMinus(){
@@ -93,24 +104,20 @@
             },
             getUserData(){
                 let url = '/queryUserCart'
-                // let params = `goods_uname=${this.$store.state.uname}`
-                this.axios.get(url).then((res)=>{
+                let params = `cart_uname=${this.$store.state.uname}`
+                this.axios.post(url,params).then((res)=>{
                     console.log(res)
                     this.data = res.data
                 })
             },
+    
             // checkout(){
                 
             // }
         },
         mounted(){
-            // if(!this.$store.state.uname){
-            //     return
-            // }else{
-                this.getUserData()
-            //     console.log(this.data)
-            // }
-        }
+            this.getUserData()
+        },
     }
 </script>
 

@@ -21,6 +21,7 @@
                 uname:"",
                 upwd:"",
                 reupwd:"",
+                // isRouterAlive:true,
             }
         },
         methods:{
@@ -32,6 +33,7 @@
                     if(res.data == 1 ){
                         alert('登入成功')
                         this.$store.commit('getuname',this.uname)
+                        
                         this.$router.push('/')
                     }else if(res.data == 0){
                         alert('登入失敗')

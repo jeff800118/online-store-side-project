@@ -69,7 +69,8 @@ CREATE TABLE `cart` (
     `cart_price` VARCHAR(255) NOT NULL,
     `cart_count` VARCHAR(255) NOT NULL,
     `cart_pid` VARCHAR(255) NOT NULL,
-    `cart_img` VARCHAR(255) NOT NULL
+    `cart_img` VARCHAR(255) NOT NULL,
+    `cart_totalPrice` VARCHAR(255) NOT NULL
 )CHARSET UTF8;
 
 INSERT INTO `cart` (sex_num,sex_name)
