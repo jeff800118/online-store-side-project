@@ -29,13 +29,14 @@
         v-if="this.$store.state.uname" 
         :center="true"
         >
-          <el-table :data="data" @click="centerDialogVisible = true">
-            <el-table-column property="" label="商品圖片" width="150" ><img  :src="require(`../assets/${this.data[0].cart_img}`)" alt="" id="cartImg" ></el-table-column>
+          <el-table  @click="centerDialogVisible = true" :data="data">
+            <el-table-column property="cart_img" label="商品圖片" width="150" ><img :src="require(`../assets/${this.data[1].cart_img}`)" alt="" id="cartImg" ></el-table-column>
+            <!-- <el-table-column property="" label="商品圖片" width="150" ><img :src="require(`../assets/${this.data[0].cart_img}`)" alt="" id="cartImg" ></el-table-column> -->
             <el-table-column property="cart_name" label="商品名稱" width="300" center="true" class="cartTextCenter"></el-table-column>
             
-            <el-table-column label="" width="60"><button  @click="countMinus(this.data.cart_num)">-</button></el-table-column>
+            <el-table-column label="" width="60"><button  @click="countMinus()">-</button></el-table-column>
             <el-table-column label="數量" width="50" property="cart_count"></el-table-column>
-            <el-table-column label="" width="80"><button  @click="countPlus(data)">+</button></el-table-column>
+            <el-table-column label="" width="80"><button  @click="countPlus()">+</button></el-table-column>
             
             <el-table-column property="cart_price" label="商品單價"></el-table-column>
             <el-table-column  label="商品總價" property="cart_totalPrice"></el-table-column>
@@ -43,6 +44,7 @@
           </el-table>
           <el-button slot="footer"  @click="centerDialogVisible = true">結帳</el-button>
         </el-dialog>
+        
         
         <div>
             <span v-show="$store.state.uname">{{$store.state.uname}}你好</span>
@@ -65,7 +67,7 @@
             }
         },  
         methods:{
-            countPlus(data){
+            countPlus(index){
                 let url = '/updateCart'
                 let urlParms = new URLSearchParams(location.search);
                 // let $uid = urlParms.get('cart_num');
@@ -108,11 +110,15 @@
                 this.axios.post(url,params).then((res)=>{
                     console.log(res)
                     this.data = res.data
+                    console.log(this.data.length)      
                 })
             },
-    
             // checkout(){
-                
+            //     let url = ''
+            //     let params = `goods_stock`
+            //     this.axios.post(url,params).then((res)=>{
+            //         console.log(res)
+            //     })
             // }
         },
         mounted(){

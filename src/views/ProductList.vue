@@ -117,7 +117,7 @@
             },
             addToUserCart(){
                 let url1 = '/userCart'
-                let params = `cart_uname=${this.$store.state.uname}&cart_name=${this.cart_name}&cart_price=${this.cart_price}&cart_count=1&cart_pid=${this.cart_pid}&cart_img=${this.cart_img}&cart_totalPrice=${this.price*1}`
+                let params = `cart_uname=${this.$store.state.uname}&cart_name=${this.cart_name}&cart_price=${this.cart_price}&cart_count=1&cart_pid=${this.cart_pid}&cart_img=${this.cart_img}`
                 this.axios.post(url1,params).then((res)=>{
                     console.log(res)
                 })
