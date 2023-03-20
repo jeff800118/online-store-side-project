@@ -18,29 +18,38 @@
         <div id="loginbar" >
         <el-button type="text" @click="dialogTableVisible = true" >
             <img src="../assets/cart.svg" alt=""  id="cart" @click="checkUser()">
-            <el-badge :value="value" style="bottom:30px;right:10px"></el-badge>
+            <el-badge :value="value" style="bottom:30px;right:10px" v-if="this.value != 0"></el-badge>
         </el-button>
         </div>
-
+        <!-- v-if="this.$store.state.uname"  -->
         <el-dialog 
         :modal-append-to-body="false" 
         title="我的購物車" 
         :visible.sync="dialogTableVisible" 
-        v-if="this.$store.state.uname" 
+        v-if="this.$store.state.uname"
         :center="true"
+        :fullscreen="false"
+        
         >
-          <el-table  @click="centerDialogVisible = true" :data="data">
-            <el-table-column property="cart_img" label="商品圖片" width="150" ><img :src="require(`../assets/${this.data[1].cart_img}`)" alt="" id="cartImg" ></el-table-column>
+          <el-table  
+          @click="centerDialogVisible = true" 
+          :data="data" 
+          v-for="(item,index) in data" :key="index"
+          height="500"
+          >
+            <el-table-column property="cart_img" label="商品圖片" width="150"  ><img :src="require(`../assets/${item.cart_img}`)" alt="" id="cartImg" ></el-table-column>
+            <!-- <div><img  :src="require(`../assets/${item.cart_img}`)" alt="" id="cartImg" ></div> -->
             <!-- <el-table-column property="" label="商品圖片" width="150" ><img :src="require(`../assets/${this.data[0].cart_img}`)" alt="" id="cartImg" ></el-table-column> -->
-            <el-table-column property="cart_name" label="商品名稱" width="300" center="true" class="cartTextCenter"></el-table-column>
+            <el-table-column property="cart_name" label="商品名稱" width="300" center="true" class="cartTextCenter" ></el-table-column>
+            <!-- <p>item.cart_count</p> -->
+            <el-table-column label="" width="60"><button  @click="countMinus(item.cart_num)">-</button></el-table-column>
+            <el-table-column label="數量" width="50" property="">{{item.cart_count}}</el-table-column>
+            <el-table-column label="" width="80"><button  @click="countPlus(item.cart_num)">+</button></el-table-column> 
             
-            <el-table-column label="" width="60"><button  @click="countMinus()">-</button></el-table-column>
-            <el-table-column label="數量" width="50" property="cart_count"></el-table-column>
-            <el-table-column label="" width="80"><button  @click="countPlus()">+</button></el-table-column>
-            
-            <el-table-column property="cart_price" label="商品單價"></el-table-column>
-            <el-table-column  label="商品總價" property="cart_totalPrice"></el-table-column>
+            <el-table-column property="" label="商品單價">{{ item.cart_price }}</el-table-column>
+            <!-- <el-table-column  label="商品總價" property="cart_totalPrice">{{ item.cart_price }}</el-table-column> -->
             <!-- <el-table-column  label="商品總價" property="{{cart_price * cart_count}}s">{{ this.data[0].goods_price * this.data[0].goods_count }}</el-table-column> -->
+            <el-table-column  label="商品總價" property="">{{ item.cart_count * item.cart_price }}</el-table-column>
           </el-table>
           <el-button slot="footer"  @click="centerDialogVisible = true">結帳</el-button>
         </el-dialog>
@@ -64,19 +73,26 @@
                 centerDialogVisible: true,
                 count:1,
                 value:2,
+                cartData:"",
             }
         },  
         methods:{
             countPlus(index){
                 let url = '/updateCart'
-                let urlParms = new URLSearchParams(location.search);
-                // let $uid = urlParms.get('cart_num');
-                console.log(urlParms)
-                let params = `cart_num_=${$uid}`
-                console.log($uid)
-                console.log(data)
+                let params = `cart_num=${index}&cart_count=${this.count}`
+                console.log(index)
                 this.axios.post(url,params).then((res)=>{
                     console.log(res)
+                    this.count++
+                    console.log(this.count)
+                })
+                // let urlParms = new URLSearchParams(location.search);
+                // let $uid = urlParms.get('urlParms');
+                // console.log(urlParms)   
+                // let params = `cart_num_=${$uid}`
+
+                // this.axios.post(url,params).then((res)=>{
+                //     console.log(res)
                     // res.data[goods_num].goods_count++
                     // if(res.data[goods_num].goods_count >= 10){
                     //     alert('購買數量達上限')
@@ -88,16 +104,24 @@
                     //     this.count++
                     //     console.log(this.count)
                     // }
-                })
+                // })
             },
-            countMinus(){
-                if(this.count == 0 ){
-                    alert('數量不可低於0')
-                    return;
-                }else{
-                    this.count--
+            countMinus(index){
+                let url = '/updateCart'
+                let params = `cart_num=${index}&cart_count=${this.count}`
+                console.log(index)
+                this.axios.post(url,params).then((res)=>{
+                    console.log(res)
+                    if(this.count > 1 ){
+                        this.count--
+                        console.log(this.count)
+                        return;
+                    }else if(this.count <= 1 ){
+                        alert('數量不可低於1')
                     console.log(this.count)
-                }
+                    }
+                })
+                
             },
             checkUser(){
                 if(!this.$store.state.uname){
@@ -110,7 +134,8 @@
                 this.axios.post(url,params).then((res)=>{
                     console.log(res)
                     this.data = res.data
-                    console.log(this.data.length)      
+                    console.log(this.data.length)
+                    this.value = this.data.length    
                 })
             },
             // checkout(){
