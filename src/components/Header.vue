@@ -29,29 +29,67 @@
         v-if="this.$store.state.uname"
         :center="true"
         :fullscreen="false"
-        
         >
           <el-table  
           @click="centerDialogVisible = true" 
           :data="data" 
-          v-for="(item,index) in data" :key="index"
           height="500"
+          stripe
+          show-summary
+          style="width: 100%"
+          :summary-method="getSummaries"
           >
-            <el-table-column property="cart_img" label="商品圖片" width="150"  ><img :src="require(`../assets/${item.cart_img}`)" alt="" id="cartImg" ></el-table-column>
-            <!-- <div><img  :src="require(`../assets/${item.cart_img}`)" alt="" id="cartImg" ></div> -->
-            <!-- <el-table-column property="" label="商品圖片" width="150" ><img :src="require(`../assets/${this.data[0].cart_img}`)" alt="" id="cartImg" ></el-table-column> -->
-            <el-table-column property="cart_name" label="商品名稱" width="300" center="true" class="cartTextCenter" ></el-table-column>
-            <!-- <p>item.cart_count</p> -->
-            <el-table-column label="" width="60"><button  @click="countMinus(item.cart_num)">-</button></el-table-column>
-            <el-table-column label="數量" width="50" property="">{{item.cart_count}}</el-table-column>
-            <el-table-column label="" width="80"><button  @click="countPlus(item.cart_num)">+</button></el-table-column> 
+        <el-table-column label="商品名稱" property="cart_name" align=""></el-table-column>
+        <el-table-column label="價格" property="cart_price" align="center"></el-table-column>
+        <el-table-column label="" property="" align="center" width="50"><button @click="countMinus()">-</button></el-table-column>
+        <el-table-column label="數量" property="" align="center" style="button" width="50">{{ count }}</el-table-column>
+        <el-table-column label="" property="" align="center" width="50"><button @click="countPlus()">+</button></el-table-column>
+        <!-- <el-table-column label="總價" property="cart_totalPrice" align="center"></el-table-column> -->
+          
+            <!-- <el-table-column property="" label="商品圖片" align="center" width="150" >
+                <template slot-scope="scope" v-for="(item) in data">
+                    <img  :src="require(`../assets/${item.cart_img}`)" id="cartImg"></img> 
+                </template>
+            </el-table-column>
+
+            <el-table-column property="" label="商品名稱" align="center" width="300" center="true" class="cartTextCenter" >
+                <template slot-scope="scope"  >
+                    <div v-for="(item,index) in data" :key="index">
+                        {{item.cart_name}}
+                    </div>
+                </template>
+            </el-table-column>
+
+            <el-table-column label="數量" align="center" width="100" property="">
+                <el-select v-model="begin">
+                    <el-option  v-for="(item,index) in options" :key="index" :label="item.label" :value="item.value">
+                        {{ item.value }}
+                    </el-option>
+                </el-select>
+            </el-table-column>
+
+            <el-table-column property="" align="center" label="商品單價">
+                <template slot-scope="scope" >
+                    <div v-for="(item,index) in data" :key="index">
+                        {{item.cart_price}}
+                    </div>
+                </template>
+            </el-table-column>
+
+            <el-table-column  label="商品總價" property="">
+                <template slot-scope="scope">
+                    <div v-for="(item,index) in data" :key="index">
+                        {{item.cart_price * item.cart_count}}
+                    </div>
+                </template>
+            </el-table-column> -->
+            <!-- <el-table-column label="" width="60"><button  @click="countMinus()">-</button></el-table-column> -->
+            <!-- <el-table-column label="" width="80"><button  @click="countPlus()">+</button></el-table-column>  -->
             
-            <el-table-column property="" label="商品單價">{{ item.cart_price }}</el-table-column>
-            <!-- <el-table-column  label="商品總價" property="cart_totalPrice">{{ item.cart_price }}</el-table-column> -->
-            <!-- <el-table-column  label="商品總價" property="{{cart_price * cart_count}}s">{{ this.data[0].goods_price * this.data[0].goods_count }}</el-table-column> -->
-            <el-table-column  label="商品總價" property="">{{ item.cart_count * item.cart_price }}</el-table-column>
+          <!-- </el-table-column> -->
           </el-table>
           <el-button slot="footer"  @click="centerDialogVisible = true">結帳</el-button>
+         
         </el-dialog>
         
         
@@ -74,18 +112,36 @@
                 count:1,
                 value:2,
                 cartData:"",
-            }
-        },  
+                begin:1,
+                options: [{
+                  value: '1',
+                  label: '1'
+                }, {
+                  value: '2',
+                  label: '2'
+                }, {
+                  value: '3',
+                  label: '3'
+                }, {
+                  value: '4',
+                  label: '4'
+                }, {
+                  value: '5',
+                  label: '5'
+                }],
+                    }
+                },  
         methods:{
-            countPlus(index){
-                let url = '/updateCart'
-                let params = `cart_num=${index}&cart_count=${this.count}`
-                console.log(index)
-                this.axios.post(url,params).then((res)=>{
-                    console.log(res)
-                    this.count++
-                    console.log(this.count)
-                })
+            countPlus(){
+                this.count++
+                // let url = '/updateCart'
+                // let params = `cart_num=${index}&cart_count=${this.count}`
+                // console.log(index)
+                // this.axios.post(url,params).then((res)=>{
+                //     console.log(res)
+                //     this.count++
+                //     console.log(this.count)
+                // })
                 // let urlParms = new URLSearchParams(location.search);
                 // let $uid = urlParms.get('urlParms');
                 // console.log(urlParms)   
@@ -106,21 +162,47 @@
                     // }
                 // })
             },
-            countMinus(index){
-                let url = '/updateCart'
-                let params = `cart_num=${index}&cart_count=${this.count}`
-                console.log(index)
-                this.axios.post(url,params).then((res)=>{
-                    console.log(res)
-                    if(this.count > 1 ){
-                        this.count--
-                        console.log(this.count)
-                        return;
-                    }else if(this.count <= 1 ){
-                        alert('數量不可低於1')
-                    console.log(this.count)
-                    }
-                })
+            getSummaries(param) {
+                const { columns, data } = param;
+                const sums = [];
+                columns.forEach((column, index) => {
+                  if (index === 0 ) {
+                    sums[index] = '總價';
+                    return;
+                  }
+                  const values = data.map(item => Number(item[column.property]));
+                  if (!values.every(value => isNaN(value)) && index == 1) {
+                    sums[index] = values.reduce((prev, curr) => {
+                      const value = Number(curr);
+                      if (!isNaN(value)) {
+                        return prev + curr;
+                      } else {
+                        return prev;
+                      }
+                    }, 0);
+                    sums[index] += ' 元';
+                  } else if(index == 3 ){
+                    sums[index] = '';
+                  }
+                });
+                return sums;
+            },
+            countMinus(){
+                this.count--
+                // let url = '/updateCart'
+                // let params = `cart_num=${index}&cart_count=${this.count}`
+                // console.log(index)
+                // this.axios.post(url,params).then((res)=>{
+                //     console.log(res)
+                //     if(this.count > 1 ){
+                //         this.count--
+                //         console.log(this.count)
+                //         return;
+                //     }else if(this.count <= 1 ){
+                //         alert('數量不可低於1')
+                //     console.log(this.count)
+                //     }
+                // })
                 
             },
             checkUser(){
