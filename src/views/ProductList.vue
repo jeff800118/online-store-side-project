@@ -156,6 +156,7 @@
   align-items: center;
   background-color:#f9f2f4;
   margin-top: 40px;
+  padding: 5px;
   max-width:100%;
   & ul{
     list-style-type: none;
