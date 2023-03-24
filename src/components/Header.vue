@@ -38,55 +38,23 @@
           show-summary
           style="width: 100%"
           :summary-method="getSummaries"
+          type="index"
+          :index="indexMethod"
           >
-        <el-table-column label="商品名稱" property="cart_name" align=""></el-table-column>
+        <el-table-column
+            type="selection"
+            width="55">
+        </el-table-column>
+        <el-table-column label="商品名稱" show-overflow-tooltip property="cart_name" width="200px"></el-table-column>
         <el-table-column label="價格" property="cart_price" align="center"></el-table-column>
         <el-table-column label="" property="" align="center" width="50"><button @click="countMinus()">-</button></el-table-column>
-        <el-table-column label="數量" property="" align="center" style="button" width="50">{{ count }}</el-table-column>
+        <el-table-column label="數量"  property="cart_count" align="center"  width="50"></el-table-column>
         <el-table-column label="" property="" align="center" width="50"><button @click="countPlus()">+</button></el-table-column>
-        <!-- <el-table-column label="總價" property="cart_totalPrice" align="center"></el-table-column> -->
-          
-            <!-- <el-table-column property="" label="商品圖片" align="center" width="150" >
-                <template slot-scope="scope" v-for="(item) in data">
-                    <img  :src="require(`../assets/${item.cart_img}`)" id="cartImg"></img> 
-                </template>
-            </el-table-column>
-
-            <el-table-column property="" label="商品名稱" align="center" width="300" center="true" class="cartTextCenter" >
-                <template slot-scope="scope"  >
-                    <div v-for="(item,index) in data" :key="index">
-                        {{item.cart_name}}
-                    </div>
-                </template>
-            </el-table-column>
-
-            <el-table-column label="數量" align="center" width="100" property="">
-                <el-select v-model="begin">
-                    <el-option  v-for="(item,index) in options" :key="index" :label="item.label" :value="item.value">
-                        {{ item.value }}
-                    </el-option>
-                </el-select>
-            </el-table-column>
-
-            <el-table-column property="" align="center" label="商品單價">
-                <template slot-scope="scope" >
-                    <div v-for="(item,index) in data" :key="index">
-                        {{item.cart_price}}
-                    </div>
-                </template>
-            </el-table-column>
-
-            <el-table-column  label="商品總價" property="">
-                <template slot-scope="scope">
-                    <div v-for="(item,index) in data" :key="index">
-                        {{item.cart_price * item.cart_count}}
-                    </div>
-                </template>
-            </el-table-column> -->
-            <!-- <el-table-column label="" width="60"><button  @click="countMinus()">-</button></el-table-column> -->
-            <!-- <el-table-column label="" width="80"><button  @click="countPlus()">+</button></el-table-column>  -->
-            
-          <!-- </el-table-column> -->
+        <!-- <el-table-column label="單項總價格" property="" align="center"  >
+            <template v-for="(item,index) in data" >
+                <div :key="index" v-if="index == index">{{ item.cart_price * item.cart_count }}</div>
+            </template>
+        </el-table-column> -->
           </el-table>
           <el-button slot="footer"  @click="centerDialogVisible = true">結帳</el-button>
          
@@ -113,6 +81,7 @@
                 value:2,
                 cartData:"",
                 begin:1,
+                input:"11111",
                 options: [{
                   value: '1',
                   label: '1'
@@ -132,16 +101,20 @@
                     }
                 },  
         methods:{
-            countPlus(){
-                this.count++
-                // let url = '/updateCart'
-                // let params = `cart_num=${index}&cart_count=${this.count}`
-                // console.log(index)
-                // this.axios.post(url,params).then((res)=>{
-                //     console.log(res)
-                //     this.count++
-                //     console.log(this.count)
-                // })
+            indexMethod(index){
+                console.log(index)
+                return index+1
+            },
+            countPlus(pid){
+                console.log(pid)
+                let url = '/updateCart'
+                let params = `cart_num=${index}&cart_count=${this.count}`
+                console.log(index)
+                this.axios.post(url,params).then((res)=>{
+                    console.log(res)
+                    this.count++
+                    console.log(this.count)
+                })
                 // let urlParms = new URLSearchParams(location.search);
                 // let $uid = urlParms.get('urlParms');
                 // console.log(urlParms)   
@@ -166,12 +139,12 @@
                 const { columns, data } = param;
                 const sums = [];
                 columns.forEach((column, index) => {
-                  if (index === 0 ) {
-                    sums[index] = '總價';
+                  if (index === 1 ) {
+                    sums[index] = '總價 :';
                     return;
                   }
                   const values = data.map(item => Number(item[column.property]));
-                  if (!values.every(value => isNaN(value)) && index == 1) {
+                  if (!values.every(value => isNaN(value)) && index == 2) {
                     sums[index] = values.reduce((prev, curr) => {
                       const value = Number(curr);
                       if (!isNaN(value)) {
@@ -181,7 +154,7 @@
                       }
                     }, 0);
                     sums[index] += ' 元';
-                  } else if(index == 3 ){
+                  } else if(index == 4 ){
                     sums[index] = '';
                   }
                 });
@@ -316,6 +289,16 @@
     text-align: center;
 }
 
+.bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    // border-radius: 4px;
+    min-height: 36px;
+  }
 
 
 </style>
