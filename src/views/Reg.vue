@@ -213,7 +213,7 @@
     width: 25% ;
     padding:20px;
     margin-top:5%;
-    margin-left:40%;
+    margin-left:37%;
     display:flex;
     flex-direction: column;
     font-weight:700;
@@ -238,7 +238,7 @@
 .regItem{
     border-top:1px solid #e1e1e1;
     line-height: 3;
-    text-align: center;
+    text-align: left;
     & input{
         align-self: center;
     }
