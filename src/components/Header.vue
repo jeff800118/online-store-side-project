@@ -50,11 +50,16 @@
         <el-table-column label="" property="" align="center" width="50"><button @click="countMinus()">-</button></el-table-column>
         <el-table-column label="數量"  property="cart_count" align="center"  width="50"></el-table-column>
         <el-table-column label="" property="" align="center" width="50"><button @click="countPlus()">+</button></el-table-column>
-        <!-- <el-table-column label="單項總價格" property="" align="center"  >
-            <template v-for="(item,index) in data" >
-                <div :key="index" v-if="index == index">{{ item.cart_price * item.cart_count }}</div>
+        <el-table-column label="操作" align="center">
+            <template slot-scope="{row}">
+                <el-button type="danger" @click="removeFromCart(row)" size="small">刪除</el-button>
             </template>
-        </el-table-column> -->
+        </el-table-column>
+        <el-table-column label="單項總價格" property="" align="center" >
+            <template slot-scope="{row}">
+                <div>{{ row.cart_price * row.cart_count }}</div>
+            </template>
+        </el-table-column>
           </el-table>
           <el-button slot="footer"  @click="centerDialogVisible = true">結帳</el-button>
          
@@ -101,6 +106,9 @@
                     }
                 },  
         methods:{
+            removeFromCart(row){
+                console.log(row)
+            },
             indexMethod(index){
                 console.log(index)
                 return index+1
