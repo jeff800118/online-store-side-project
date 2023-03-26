@@ -65,7 +65,7 @@
         </el-table-column>
         <el-table-column label="單項總價格" property="" align="center" >
             <template slot-scope="{row}">
-                <div>{{ row.cart_price * row.cart_count }}</div>
+                <div>{{ row.cart_price * row.cart_count }} 元</div>
             </template>
         </el-table-column>
           </el-table>
@@ -126,25 +126,32 @@
                 console.log(index)
                 return index+1
             },
-            // countPlus(row){
-            //     let url = '/updateCart'
-            //     let params = `cart_num=${row.cart_num}`
+            countPlus(row){
+                if(row.cart_count < 10 ){
+                    let url = '/updateCart'
+                    let params = `cart_num=${row.cart_num}&cart_count=${row.cart_count <= 10 ? row.cart_count++ : 10}`
+                    this.axios.post(url,params).then((res)=>{
+                         return
+                    })
+                }
+                // let url = '/updateCart'
+                // let params = `cart_num=${row.cart_num}`
 
-            //     this.axios.post(url,params).then((res)=>{
-            //         console.log(res)
-            //         res.data[goods_num].goods_count++
-            //         if(res.data[goods_num].goods_count >= 10){
-            //             alert('購買數量達上限')
-            //             return;
-            //         }else if(res.data[goods_num].goods_count > res.data[goods_num].goods_stock){
-            //             alert('庫存不夠')
-            //             return;
-            //         }else{
-            //             this.count++
-            //             console.log(this.count)
-            //         }
-            //     })
-            // },
+                // this.axios.post(url,params).then((res)=>{
+                //     console.log(res)
+                //     res.data[goods_num].goods_count++
+                //     if(res.data[goods_num].goods_count >= 10){
+                //         alert('購買數量達上限')
+                //         return;
+                //     }else if(res.data[goods_num].goods_count > res.data[goods_num].goods_stock){
+                //         alert('庫存不夠')
+                //         return;
+                //     }else{
+                //         this.count++
+                //         console.log(this.count)
+                //     }
+                // })
+            },
             getSummaries(param) {
                 const { columns, data } = param;
                 const sums = [];
