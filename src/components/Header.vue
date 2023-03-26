@@ -46,13 +46,21 @@
             width="55">
         </el-table-column>
         <el-table-column label="商品名稱" show-overflow-tooltip property="cart_name" width="200px"></el-table-column>
-        <el-table-column label="價格" property="cart_price" align="center"></el-table-column>
-        <el-table-column label="" property="" align="center" width="50"><button @click="countMinus()">-</button></el-table-column>
+        <el-table-column label="單價" property="cart_price" align="center"></el-table-column>
+        <el-table-column label="" property="" align="center" width="50">
+            <template slot-scope="{row}">
+                <button @click="countMinus(row)" >-</button>
+            </template>>
+        </el-table-column>
         <el-table-column label="數量"  property="cart_count" align="center"  width="50"></el-table-column>
-        <el-table-column label="" property="" align="center" width="50"><button @click="countPlus()">+</button></el-table-column>
+        <el-table-column label="" property="" align="center" width="50">
+            <template slot-scope="{row}">
+                <button @click="countPlus(row)" >+</button>
+            </template>
+        </el-table-column>
         <el-table-column label="操作" align="center">
             <template slot-scope="{row}">
-                <el-button type="danger" @click="removeFromCart(row)" size="small">刪除</el-button>
+                <el-button type="danger" @click="removeFromCart(row)" size="small" >刪除</el-button>
             </template>
         </el-table-column>
         <el-table-column label="單項總價格" property="" align="center" >
@@ -108,41 +116,35 @@
         methods:{
             removeFromCart(row){
                 console.log(row)
+                let url =`/del/${row.cart_num}`
+                this.axios.get(url).then((res)=>{
+                    console.log(res)
+                })
+                // row.splice(index,)
             },
-            indexMethod(index){
+            indexMethod(index){ 
                 console.log(index)
                 return index+1
             },
-            countPlus(pid){
-                console.log(pid)
-                let url = '/updateCart'
-                let params = `cart_num=${index}&cart_count=${this.count}`
-                console.log(index)
-                this.axios.post(url,params).then((res)=>{
-                    console.log(res)
-                    this.count++
-                    console.log(this.count)
-                })
-                // let urlParms = new URLSearchParams(location.search);
-                // let $uid = urlParms.get('urlParms');
-                // console.log(urlParms)   
-                // let params = `cart_num_=${$uid}`
+            // countPlus(row){
+            //     let url = '/updateCart'
+            //     let params = `cart_num=${row.cart_num}`
 
-                // this.axios.post(url,params).then((res)=>{
-                //     console.log(res)
-                    // res.data[goods_num].goods_count++
-                    // if(res.data[goods_num].goods_count >= 10){
-                    //     alert('購買數量達上限')
-                    //     return;
-                    // }else if(res.data[goods_num].goods_count > res.data[goods_num].goods_stock){
-                    //     alert('庫存不夠')
-                    //     return;
-                    // }else{
-                    //     this.count++
-                    //     console.log(this.count)
-                    // }
-                // })
-            },
+            //     this.axios.post(url,params).then((res)=>{
+            //         console.log(res)
+            //         res.data[goods_num].goods_count++
+            //         if(res.data[goods_num].goods_count >= 10){
+            //             alert('購買數量達上限')
+            //             return;
+            //         }else if(res.data[goods_num].goods_count > res.data[goods_num].goods_stock){
+            //             alert('庫存不夠')
+            //             return;
+            //         }else{
+            //             this.count++
+            //             console.log(this.count)
+            //         }
+            //     })
+            // },
             getSummaries(param) {
                 const { columns, data } = param;
                 const sums = [];
@@ -162,29 +164,22 @@
                       }
                     }, 0);
                     sums[index] += ' 元';
-                  } else if(index == 4 ){
-                    sums[index] = '';
-                  }
+                  } 
+                //   else if(index == 5 ){
+                //     sums[index] = '';
+                //   }
                 });
                 return sums;
             },
-            countMinus(){
-                this.count--
-                // let url = '/updateCart'
-                // let params = `cart_num=${index}&cart_count=${this.count}`
-                // console.log(index)
-                // this.axios.post(url,params).then((res)=>{
-                //     console.log(res)
-                //     if(this.count > 1 ){
-                //         this.count--
-                //         console.log(this.count)
-                //         return;
-                //     }else if(this.count <= 1 ){
-                //         alert('數量不可低於1')
-                //     console.log(this.count)
-                //     }
-                // })
-                
+            countMinus(row){
+                // console.log(row)
+                if(row.cart_count >= 1 ){
+                    let url = '/updateCart'
+                    let params = `cart_num=${row.cart_num}&cart_count=${row.cart_count > 1 ? row.cart_count-- : 1}`
+                    this.axios.post(url,params).then((res)=>{
+                         return
+                    })
+                }
             },
             checkUser(){
                 if(!this.$store.state.uname){
