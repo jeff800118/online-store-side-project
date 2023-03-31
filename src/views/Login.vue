@@ -33,8 +33,8 @@
                     if(res.data == 1 ){
                         alert('登入成功')
                         this.$store.commit('getuname',this.uname)
-                        
                         this.$router.push('/')
+                        this.$router.go(0)
                     }else if(res.data == 0){
                         alert('登入失敗')
                     }

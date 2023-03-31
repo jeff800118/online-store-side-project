@@ -40,10 +40,14 @@
           :summary-method="getSummaries"
           type="index"
           :index="indexMethod"
+          select-all="select"
+          @selection-change="handleSelectionChange"
           >
         <el-table-column
             type="selection"
-            width="55">
+            width="55"
+            @selection-change="handleSelectionChange"
+            >
         </el-table-column>
         <el-table-column label="商品名稱" show-overflow-tooltip property="cart_name" width="200px"></el-table-column>
         <el-table-column label="單價" property="cart_price" align="center"></el-table-column>
@@ -95,6 +99,7 @@
                 cartData:"",
                 begin:1,
                 input:"11111",
+                selectionRows:[],
                 options: [{
                   value: '1',
                   label: '1'
@@ -114,13 +119,21 @@
                     }
                 },  
         methods:{
-            removeFromCart(row){
-                console.log(row)
-                let url =`/del/${row.cart_num}`
+            handleSelectionChange(value){
+                console.log(value)
+                this.selectionRows = value.map(item=>item.cart_num);
+                console.log(this.selectionRows)
+            },
+            removeFromCart(){
+                console.log(this.selectionRows)
+                if(this.selectionRows != 0){
+                    let url =`/del/${this.selectionRows}`
                 this.axios.get(url).then((res)=>{
-                    console.log(res)
+                    this.$router.go(0)
                 })
-                // row.splice(index,)
+                }else{
+                    alert('請選擇商品項目')
+                }
             },
             indexMethod(index){ 
                 console.log(index)
@@ -134,47 +147,36 @@
                          return
                     })
                 }
-                // let url = '/updateCart'
-                // let params = `cart_num=${row.cart_num}`
-
-                // this.axios.post(url,params).then((res)=>{
-                //     console.log(res)
-                //     res.data[goods_num].goods_count++
-                //     if(res.data[goods_num].goods_count >= 10){
-                //         alert('購買數量達上限')
-                //         return;
-                //     }else if(res.data[goods_num].goods_count > res.data[goods_num].goods_stock){
-                //         alert('庫存不夠')
-                //         return;
-                //     }else{
-                //         this.count++
-                //         console.log(this.count)
-                //     }
-                // })
             },
             getSummaries(param) {
                 const { columns, data } = param;
+                // console.log(columns)
                 const sums = [];
                 columns.forEach((column, index) => {
-                  if (index === 1 ) {
+                    console.log(column)
+                  if (index === 6 ) {
                     sums[index] = '總價 :';
                     return;
                   }
-                  const values = data.map(item => Number(item[column.property]));
-                  if (!values.every(value => isNaN(value)) && index == 2) {
-                    sums[index] = values.reduce((prev, curr) => {
-                      const value = Number(curr);
-                      if (!isNaN(value)) {
-                        return prev + curr;
-                      } else {
-                        return prev;
-                      }
+                //   const values = data.map(item => Number(item[column.property]));
+                //   if (!values.every(value => isNaN(value)) && index == 2 ) {
+                //     console.log(column)
+                //     sums[index] = values.reduce((prev, curr) => {
+                //       const value = Number(curr);
+                //       if (!isNaN(value)) {
+                //         return prev + curr;
+                //       } else {
+                //         return prev;
+                //       }
+                //     }, 0);
+                //     sums[index] += ' 元';
+                //   } 
+                  if (index === columns.length - 1) {
+                    sums[index] = data.reduce((total, item) => {
+                        return total + (item.cart_price * item.cart_count);
                     }, 0);
                     sums[index] += ' 元';
-                  } 
-                //   else if(index == 5 ){
-                //     sums[index] = '';
-                //   }
+                    }
                 });
                 return sums;
             },
