@@ -5,10 +5,6 @@
                 <img src="../assets/indexImg.png" alt="">
                 <span>達內線上商城</span>
             </router-link>
-            <!-- <div class="searchBox">
-                <input type="text" >
-                <button>搜尋</button>
-            </div> -->
         </div >
         <div id="topic">
             <router-link to="/">隨時最低價，好康都在這!</router-link> 
@@ -30,52 +26,61 @@
         :center="true"
         :fullscreen="false"
         >
-          <el-table  
-          @click="centerDialogVisible = true" 
-          :data="data" 
-          height="500"
-          stripe
-          show-summary
-          style="width: 100%"
-          :summary-method="getSummaries"
-          type="index"
-          :index="indexMethod"
-          select-all="select"
-          @selection-change="handleSelectionChange"
-          >
-        <el-table-column
-            type="selection"
-            width="55"
+            <el-table  
+            @click="centerDialogVisible = true" 
+            :data="data" 
+            height="500"
+            stripe
+            show-summary
+            style="width: 100%"
+            :summary-method="getSummaries"
+            type="index"
+            select-all="select"
             @selection-change="handleSelectionChange"
             >
-        </el-table-column>
-        <el-table-column label="商品名稱" show-overflow-tooltip property="cart_name" width="200px"></el-table-column>
-        <el-table-column label="單價" property="cart_price" align="center"></el-table-column>
-        <el-table-column label="" property="" align="center" width="50">
-            <template slot-scope="{row}">
-                <button @click="countMinus(row)" >-</button>
-            </template>>
-        </el-table-column>
-        <el-table-column label="數量"  property="cart_count" align="center"  width="50"></el-table-column>
-        <el-table-column label="" property="" align="center" width="50">
-            <template slot-scope="{row}">
-                <button @click="countPlus(row)" >+</button>
-            </template>
-        </el-table-column>
-        <el-table-column label="操作" align="center">
-            <template slot-scope="{row}">
-                <el-button type="danger" @click="removeFromCart(row)" size="small" >刪除</el-button>
-            </template>
-        </el-table-column>
-        <el-table-column label="單項總價格" property="" align="center" >
-            <template slot-scope="{row}">
-                <div>{{ row.cart_price * row.cart_count }} 元</div>
-            </template>
-        </el-table-column>
-          </el-table>
-          <el-button slot="footer"  @click="centerDialogVisible = true">結帳</el-button>
-         
-        </el-dialog>
+          <!-- :index="indexMethod" -->
+                <el-table-column
+                    type="selection"
+                    width="55"
+                    @selection-change="handleSelectionChange"
+                    >
+                </el-table-column>
+                <el-table-column label="商品名稱" show-overflow-tooltip property="cart_name" width="200px"></el-table-column>
+                <el-table-column label="單價" property="cart_price" align="center"></el-table-column>
+                <el-table-column label="" property="" align="center" width="50">
+                    <template slot-scope="{row}">
+                        <button @click="countMinus(row)" >-</button>
+                    </template>>
+                </el-table-column>
+                <el-table-column label="數量"  property="cart_count" align="center"  width="50"></el-table-column>
+                <el-table-column label="" property="" align="center" width="50" ref="row">
+                    <template slot-scope="{row}" >
+                        <button @click="countPlus(row)" >+</button>
+                    </template>
+                </el-table-column>
+                <el-table-column label="操作" align="center">
+                    <template slot-scope="{row}">
+                        <el-button type="danger" @click="removeFromCart(row)" size="small" >刪除</el-button>
+                    </template>
+                </el-table-column>
+                <el-table-column label="單項總價格" property="" align="center" >
+                    <template slot-scope="{row}">
+                        <div>{{ row.cart_price * row.cart_count }} 元</div>
+                    </template>
+                </el-table-column>
+                <el-table-column label="庫存預計剩餘" property="" align="center" >
+                    <template slot-scope="{row}">
+                        <div>{{ row.cart_stock }} </div>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <!-- 結帳鈕 -->
+            <el-button 
+            slot="footer"   
+            @click="checkout()"
+            
+            >結帳</el-button>
+          </el-dialog>
         
         
         <div>
@@ -96,9 +101,6 @@
                 centerDialogVisible: true,
                 count:1,
                 value:2,
-                cartData:"",
-                begin:1,
-                input:"11111",
                 selectionRows:[],
                 options: [{
                   value: '1',
@@ -135,25 +137,47 @@
                     alert('請選擇商品項目')
                 }
             },
-            indexMethod(index){ 
-                console.log(index)
-                return index+1
-            },
+            // indexMethod(index){ 
+            //     console.log(index)
+            //     return index+1
+            // },
+            checkout(){
+                let selectedRows = this.$refs.row
+                console.log(selectedRows)
+                // let url ='/checkout'
+                // let params = `goods_num=${row.cart_pid}&goods_stock=${row.cart_stock}`
+                // this.axios.post(url,params).then((res)=>{
+                    
+                // })
+            },  
             countPlus(row){
                 if(row.cart_count < 10 ){
+                    row.cart_count++
                     let url = '/updateCart'
-                    let params = `cart_num=${row.cart_num}&cart_count=${row.cart_count <= 10 ? row.cart_count++ : 10}`
+                    let params = `cart_num=${row.cart_num}&cart_count=${row.cart_count}&cart_stock=${--row.cart_stock}`
                     this.axios.post(url,params).then((res)=>{
                          return
                     })
+                }else if(row.cart_count == 10){
+                    alert('購買量上限為10')
+                }
+            },
+            countMinus(row){
+                if(row.cart_count > 1 ){
+                    row.cart_count--
+                    let url = '/updateCart'
+                    let params = `cart_num=${row.cart_num}&cart_count=${row.cart_count}&cart_stock=${++row.cart_stock}`
+                    this.axios.post(url,params).then((res)=>{
+                         return
+                    })
+                }else if(row.cart_count == 1){
+                    alert('最少為1')
                 }
             },
             getSummaries(param) {
                 const { columns, data } = param;
-                // console.log(columns)
                 const sums = [];
                 columns.forEach((column, index) => {
-                    console.log(column)
                   if (index === 6 ) {
                     sums[index] = '總價 :';
                     return;
@@ -180,16 +204,6 @@
                 });
                 return sums;
             },
-            countMinus(row){
-                // console.log(row)
-                if(row.cart_count >= 1 ){
-                    let url = '/updateCart'
-                    let params = `cart_num=${row.cart_num}&cart_count=${row.cart_count > 1 ? row.cart_count-- : 1}`
-                    this.axios.post(url,params).then((res)=>{
-                         return
-                    })
-                }
-            },
             checkUser(){
                 if(!this.$store.state.uname){
                     this.$router.push('/login')
@@ -201,17 +215,10 @@
                 this.axios.post(url,params).then((res)=>{
                     console.log(res)
                     this.data = res.data
-                    console.log(this.data.length)
+                    // console.log(this.data.length)
                     this.value = this.data.length    
                 })
             },
-            // checkout(){
-            //     let url = ''
-            //     let params = `goods_stock`
-            //     this.axios.post(url,params).then((res)=>{
-            //         console.log(res)
-            //     })
-            // }
         },
         mounted(){
             this.getUserData()

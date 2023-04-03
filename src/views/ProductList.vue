@@ -51,7 +51,8 @@
                 cart_name:"",
                 cart_pid:"",
                 cart_price:"",
-            }
+                cart_stock:"",
+            }   
         },
         methods:{
             getData(){
@@ -108,6 +109,7 @@
                     // console.log(this.goods_price)
                     this.cart_pid = res.data[0].goods_num
                     // console.log(this.goods_pid)
+                    this.cart_stock = res.data[0].goods_stock
                     this.$store.commit('addToCart',this.goodsList)
                     // console.log(this.$store.state.goods_num[0].goods_name)
                     alert('商品已放入購物車')
@@ -117,7 +119,7 @@
             },
             addToUserCart(){
                 let url1 = '/userCart'
-                let params = `cart_uname=${this.$store.state.uname}&cart_name=${this.cart_name}&cart_price=${this.cart_price}&cart_count=1&cart_pid=${this.cart_pid}&cart_img=${this.cart_img}`
+                let params = `cart_uname=${this.$store.state.uname}&cart_name=${this.cart_name}&cart_price=${this.cart_price}&cart_count=1&cart_pid=${this.cart_pid}&cart_img=${this.cart_img}&cart_stock=${--this.cart_stock}`
                 this.axios.post(url1,params).then((res)=>{
                     // console.log(res)
                     this.$router.go(0)
