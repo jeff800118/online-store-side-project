@@ -102,6 +102,7 @@
                 count:1,
                 value:2,
                 selectionRows:[],
+                selectionStock:[],
                 options: [{
                   value: '1',
                   label: '1'
@@ -123,8 +124,10 @@
         methods:{
             handleSelectionChange(value){
                 console.log(value)
-                this.selectionRows = value.map(item=>item.cart_num);
+                this.selectionRows = value.map(item=>item.cart_pid);
                 console.log(this.selectionRows)
+                this.selectionStock = value.map(item=>item.cart_stock);
+                console.log(this.selectionStock)
             },
             removeFromCart(){
                 console.log(this.selectionRows)
@@ -142,13 +145,15 @@
             //     return index+1
             // },
             checkout(){
-                let selectedRows = this.$refs.row
-                console.log(selectedRows)
-                // let url ='/checkout'
-                // let params = `goods_num=${row.cart_pid}&goods_stock=${row.cart_stock}`
-                // this.axios.post(url,params).then((res)=>{
-                    
-                // })
+                console.log(this.items)
+                    let url = `/checkout`
+                    let params = `goods_num=${this.selectionRows}&goods_stock=${this.selectionStock}`
+                    this.axios.post(url,params).then(()=>{
+
+                    })
+                setTimeout(()=>{
+                    this.removeFromCart()
+                },100)
             },  
             countPlus(row){
                 if(row.cart_count < 10 ){
